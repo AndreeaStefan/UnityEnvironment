@@ -1,0 +1,7 @@
+sceneSetups:
+- path: Assets/ML-Agents/Examples/1My_Walker/Scenes/Main.unity
+  isLoaded: 1
+  isActive: 1
+- path: Assets/ML-Agents/Examples/Walker/Scenes/Walker.unity
+  isLoaded: 0
+  isActive: 0

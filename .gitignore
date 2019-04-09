@@ -4,4 +4,8 @@ Debug
 *.log
 Temp
 Packages
+metadata
+*Cache*
+linux
+.vs
 
