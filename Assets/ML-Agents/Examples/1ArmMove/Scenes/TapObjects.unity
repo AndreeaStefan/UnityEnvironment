@@ -271,7 +271,7 @@ PrefabInstance:
     - target: {fileID: 6880411971414264706, guid: 47d8f58da88774840b1017c50f89c4cf,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.1301758
+      value: 0.13017584
       objectReference: {fileID: 0}
     - target: {fileID: 5061398628012771035, guid: 47d8f58da88774840b1017c50f89c4cf,
         type: 3}
@@ -286,7 +286,7 @@ PrefabInstance:
     - target: {fileID: 5061398628012771035, guid: 47d8f58da88774840b1017c50f89c4cf,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.07970012
+      value: 0.07970008
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47d8f58da88774840b1017c50f89c4cf, type: 3}
@@ -626,7 +626,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600481276}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: -6.59, y: 11.3, z: 0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -874,6 +874,7 @@ MonoBehaviour:
   successMaterial: {fileID: 2100000, guid: e631881e224f44840b027e89da7a5611, type: 2}
   failMaterial: {fileID: 2100000, guid: 945691f81abfe274c86661c5db002790, type: 2}
   gravityMultiplier: 2
+  armScaleFactor: 1
 --- !u!1001 &1362744638
 PrefabInstance:
   m_ObjectHideFlags: 0
