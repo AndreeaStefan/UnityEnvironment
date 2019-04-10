@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.ML_Agents.Examples._1ArmMove.Scripts.Utils
+namespace ArmMove
 {
     interface IConfigSpecification
     {

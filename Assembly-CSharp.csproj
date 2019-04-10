@@ -62,8 +62,9 @@
   <ItemGroup>
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\ArmMoveAcademy.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\ArmMoveAgent.cs" />
+    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\BodyPart.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Target.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\TargetContact1.cs" />
+    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\BodyPartConstrain.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\ConfigSpecification.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\Helper.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\IConfigSpecification.cs" />
@@ -422,6 +423,9 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>E:/Andreea/Projects/Unity Environment/Assets/ML-Agents/Plugins/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Abstractions">
       <HintPath>E:/Andreea/Projects/Unity Environment/Assets/ML-Agents/Plugins/System.IO.Abstractions.dll</HintPath>
     </Reference>
@@ -448,9 +452,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>E:/Andreea/Projects/Unity Environment/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>E:/Andreea/Projects/Unity Environment/Assets/ML-Agents/Plugins/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

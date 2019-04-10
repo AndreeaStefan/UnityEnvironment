@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-
-public class WallContact : MonoBehaviour
+namespace ArmMove
 {
-    [HideInInspector]
-    public ArmMoveAgent agent; //
-
-    void OnCollisionEnter(Collision col)
+    public class WallContact : MonoBehaviour
     {
-        // Touched goal.
-        if (col.gameObject.CompareTag("wall"))
+        [HideInInspector] public ArmMoveAgent agent; //
+
+        void OnCollisionEnter(Collision col)
         {
-            agent.IsWall();
+            // Touched goal.
+            if (col.gameObject.CompareTag("wall"))
+            {
+                agent.IsWall();
+            }
         }
     }
 }
