@@ -62,12 +62,10 @@
   <ItemGroup>
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\ArmMoveAcademy.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\ArmMoveAgent.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Target.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\TargetContact1.cs" />
+    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\CollisionDetector.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\ConfigSpecification.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\Helper.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\Utils\IConfigSpecification.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1ArmMove\Scripts\WallContact.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1My_Walker\Scripts\BodyPart.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1My_Walker\Scripts\MyGroundContact.cs" />
     <Compile Include="Assets\ML-Agents\Examples\1My_Walker\Scripts\MyTargetContact.cs" />

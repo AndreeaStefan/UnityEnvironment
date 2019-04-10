@@ -13,14 +13,17 @@ MonoBehaviour:
   m_Name: ArmMoveBrain
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 72
+    vectorObservationSize: 65
     numStackedVectorObservations: 3
-    vectorActionSize: 070000000500000005000000
+    vectorActionSize: 06000000
     cameraResolutions: []
     vectorActionDescriptions:
     - 
     - 
     - 
-    vectorActionSpaceType: 0
+    - 
+    - 
+    - 
+    vectorActionSpaceType: 1
   model: {fileID: 0}
   inferenceDevice: 0

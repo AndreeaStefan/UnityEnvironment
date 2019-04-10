@@ -53,7 +53,7 @@ public class ArmMoveAcademy : Academy
 
     public override void AcademyReset()
     {
-        var path = "E:\\Andreea\\Projects\\Git\\AvatarMaker\\AvatarMaker\\specification.json";
+        var path = "../config/config.json";
         var config = Helper.LoadJson(path);
         if (config != null)
         {
