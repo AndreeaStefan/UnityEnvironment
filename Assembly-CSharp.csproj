@@ -60,23 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\ArmMoveAcademy.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\ArmMoveAgent.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\CollisionDetector.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\TargetCollisionDetector.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\Utils\ConfigSpecification.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\Utils\Helper.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\Utils\IConfigSpecification.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\1H_ArmMove\Scripts\WallCollisionDetector.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\AdjustTrainingTimescale.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\Area.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\CameraFollow.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\FlyCamera.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\GroundContact.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\JointDriveController.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\RandomDecision.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\RayPerception.cs" />
-    <Compile Include="Assets\ML-Agents\Examples\SharedAssets\Scripts\TargetContact.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\AdjustTrainingTimescale.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\Area.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\FlyCamera.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\GroundContact.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\JointDriveController.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\RandomDecision.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\RayPerception.cs" />
+    <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\TargetContact.cs" />
     <Compile Include="Assets\ML-Agents\Scripts\Academy.cs" />
     <Compile Include="Assets\ML-Agents\Scripts\ActionMasker.cs" />
     <Compile Include="Assets\ML-Agents\Scripts\Agent.cs" />
