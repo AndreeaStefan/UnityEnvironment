@@ -12,7 +12,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{99BB1A82-3BE2-A536-A99A-EF18D6169945}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -60,6 +61,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAcademy.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAgent.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\BodyPart.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Target.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\BodyPartConstrain.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\ConfigSpecification.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\Helper.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\IConfigSpecification.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\WallContact.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\ArmMoveAcademy.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\ArmMoveAgent.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\CollisionDetector.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\TargetCollisionDetector.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\ConfigSpecification.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\Helper.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\IConfigSpecification.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\WallCollisionDetector.cs" />
     <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\AdjustTrainingTimescale.cs" />
     <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\Area.cs" />
     <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\CameraFollow.cs" />
@@ -745,6 +763,82 @@
       <Project>{5F361E90-06A8-7CB9-ADD0-C1E7478E5B94}</Project>
       <Name>iOSBLAS</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Brains.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Brains\ArmMoveBrain.asset" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Brains\ArmMoveBrain.asset.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Fail.mat" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Fail.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Floor.mat" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Floor.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Player.mat" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Player.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Success.mat" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Success.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Target.mat" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Target.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Walls.mat" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Materials\Walls.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Prefabs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Prefabs\Game.prefab" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Prefabs\Game.prefab.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Prefabs\MovementGame1.prefab" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Prefabs\MovementGame1.prefab.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scenes.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scenes\TapObjects.unity" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scenes\TapObjects.unity.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAcademy.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAgent.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Target.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\TargetContact1.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\ConfigSpecification.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\Helper.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\IConfigSpecification.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\Scripts\WallContact.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1ArmMove\TFModels.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Brains.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Brains\ArmMoveBrain.asset" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Brains\ArmMoveBrain.asset.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Brains\ArmMoveBrain.nn" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Brains\ArmMoveBrain.nn.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\config.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\config\config.json" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\config\config.json.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Fail.mat" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Fail.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Floor.mat" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Floor.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Player.mat" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Player.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Success.mat" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Success.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Target.mat" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Target.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Walls.mat" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Materials\Walls.mat.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Prefabs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Prefabs\Game.prefab" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Prefabs\Game.prefab.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Prefabs\MovementGame1.prefab" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Prefabs\MovementGame1.prefab.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scenes.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scenes\TapObjects.unity" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scenes\TapObjects.unity.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\ArmMoveAcademy.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\ArmMoveAgent.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\CollisionDetector.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\TargetCollisionDetector.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\ConfigSpecification.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\Helper.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\IConfigSpecification.cs.meta" />
+    <Content Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\WallCollisionDetector.cs.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
