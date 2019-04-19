@@ -1,18 +1,19 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
 
 
-namespace Assets.ML_Agents.Examples._1ArmMove.Scripts
+namespace ArmMove
 {
     public static class Helper
     {
-        public static ConfigSpecification LoadJson(string filePath)
+        public static List<BodyPartConstrain> LoadJson(string filePath)
         {
             if (File.Exists(filePath))
             {
                 var reader = new StreamReader(filePath);
                 string json = reader.ReadToEnd();
-                ConfigSpecification config = JsonConvert.DeserializeObject<ConfigSpecification>(json);
+                List<BodyPartConstrain> config = JsonConvert.DeserializeObject<List<BodyPartConstrain>>(json);
                 return config;
             }
 

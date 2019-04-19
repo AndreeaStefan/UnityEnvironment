@@ -1,31 +1,35 @@
 ﻿
 using UnityEngine;
 
-public class Target : MonoBehaviour
+namespace ArmMove
 {
-    public ArmMoveAgent agent;
-    public bool isTriggered = false;
-    public Vector3 initialPosition;
-    public Quaternion initialRotation;
-
-    void OnAwake()
+    public class Target : MonoBehaviour
     {
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
-    }
+        public ArmMoveAgent agent;
+        public bool isTriggered = false;
+        public int id;
+        public Vector3 initialPosition;
+        public Quaternion initialRotation;
 
-    void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.CompareTag("arm"))
+        void OnAwake()
         {
-            if(!isTriggered) agent.IsTarget();
-            isTriggered = true;
+            initialPosition = transform.position;
+            initialRotation = transform.rotation;
         }
-    }
 
-    public void ResetTransform()
-    {
-        transform.localPosition = initialPosition;
-        transform.localRotation = initialRotation;
+        void OnCollisionEnter(Collision col)
+        {
+            if (col.gameObject.CompareTag("arm"))
+            {
+                if (!isTriggered) agent.IsTarget(id);
+                isTriggered = true;
+            }
+        }
+
+        public void ResetTransform()
+        {
+            //  transform.localPosition = initialPosition;
+            transform.localRotation = initialRotation;
+        }
     }
 }
