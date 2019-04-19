@@ -2,8 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-
-namespace ArmMove
+namespace Games._1ArmMove.Scripts.Utils
 {
     public static class Helper
     {

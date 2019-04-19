@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Games._1ArmMove.Scripts.Utils;
 using MLAgents;
 using UnityEngine;
 
-namespace ArmMove
+namespace Games._1ArmMove.Scripts
 {
     public class ArmMoveAgent : Agent
     {

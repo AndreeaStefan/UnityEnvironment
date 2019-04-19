@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace ArmMove
+namespace Games._1H_ArmMove.Scripts
 {
     public class BodyPart
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Examples._1ArmMove.Scripts
+namespace Games._1H_ArmMove.Scripts
 {
     public class CollisionDetector : MonoBehaviour
     {

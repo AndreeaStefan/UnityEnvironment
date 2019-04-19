@@ -1,4 +1,4 @@
-﻿namespace ArmMove
+﻿namespace Games._1ArmMove.Scripts.Utils
 {
     public class ConfigSpecification
     {

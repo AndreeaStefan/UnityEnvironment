@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ArmMove
+﻿namespace Games._1ArmMove.Scripts.Utils
 {
     public class BodyPartConstrain
     {

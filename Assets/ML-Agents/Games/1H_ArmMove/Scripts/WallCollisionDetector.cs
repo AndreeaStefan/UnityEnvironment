@@ -1,16 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class WallCollisionDetector : MonoBehaviour
+namespace Games._1H_ArmMove.Scripts
 {
-    public ArmMoveAgent agent; 
-
-    private void OnTriggerEnter(Collider other)
+    public class WallCollisionDetector : MonoBehaviour
     {
-        if (other.gameObject.CompareTag("arm") || other.gameObject.CompareTag("Player"))
+        public ArmMoveAgent agent; 
+
+        private void OnTriggerEnter(Collider other)
         {
-            agent.IsWall();
+            if (other.gameObject.CompareTag("arm") || other.gameObject.CompareTag("Player"))
+            {
+                agent.IsWall();
+            }
         }
     }
 }
