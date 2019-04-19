@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Games._1H_ArmMove.Scripts
 {
-    public class ArmMoveAcademy : Academy
+    public class HArmMoveAcademy : Academy
     {
 
         /// <summary>

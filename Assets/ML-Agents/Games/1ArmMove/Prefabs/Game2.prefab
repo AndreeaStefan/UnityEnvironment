@@ -628,10 +628,7 @@ MonoBehaviour:
   Area: {fileID: 5811048048251413075}
   LeftArm: {fileID: 1207306970287729808}
   RightArm: {fileID: 1205469011366816738}
-  Targets:
-  - {fileID: 5811048046652522379}
-  - {fileID: 4200370895525833297}
-  - {fileID: 5811048047066764617}
+  TargetsContainer: {fileID: 6499170565337084613}
   RotationAmount: 20
 --- !u!1 &1896923875565890114
 GameObject:
@@ -645,8 +642,6 @@ GameObject:
   - component: {fileID: 6515163167501397652}
   - component: {fileID: 4714121715427967349}
   - component: {fileID: 5367721344352757834}
-  - component: {fileID: 1296354145169062361}
-  - component: {fileID: 4200370895525833297}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: target
@@ -726,38 +721,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1296354145169062361
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896923875565890114}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &4200370895525833297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1896923875565890114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6bc04411dbba8442892133190cc24bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 5811048048347445128}
-  id: 0
-  initialPosition: {x: 0, y: 0, z: 0}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2369058851542357463
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,8 +733,6 @@ GameObject:
   - component: {fileID: 6854945274470256054}
   - component: {fileID: 7779267478382484183}
   - component: {fileID: 8614283141005869274}
-  - component: {fileID: 1255547099505214391}
-  - component: {fileID: 5811048047066764617}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: target
@@ -851,38 +812,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1255547099505214391
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2369058851542357463}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &5811048047066764617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2369058851542357463}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6bc04411dbba8442892133190cc24bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 5811048048347445128}
-  id: 0
-  initialPosition: {x: 3.11, y: -2.14, z: -0.53}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3059017336197369244
 GameObject:
   m_ObjectHideFlags: 0
@@ -895,7 +824,6 @@ GameObject:
   - component: {fileID: 6504158948864978531}
   - component: {fileID: 8560991242155392461}
   - component: {fileID: 8697668388627914578}
-  - component: {fileID: 3927418280817878422}
   m_Layer: 0
   m_Name: Cube
   m_TagString: wall
@@ -975,22 +903,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3927418280817878422
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3059017336197369244}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &3288644016899892439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,7 +1090,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5672354504382459808}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -1814,7 +1726,6 @@ GameObject:
   - component: {fileID: 4051983103475374571}
   - component: {fileID: 7312371208374914300}
   - component: {fileID: 8137342140576591335}
-  - component: {fileID: 845898407916424569}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: wall
@@ -1894,22 +1805,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &845898407916424569
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6995446061901898372}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &7093898443685179679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,7 +1817,6 @@ GameObject:
   - component: {fileID: 7264616064281332126}
   - component: {fileID: 6841666608609863716}
   - component: {fileID: 5306430881994789718}
-  - component: {fileID: 1086878973999927781}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: wall
@@ -2002,22 +1896,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1086878973999927781
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7093898443685179679}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &7632592517680540886
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,8 +1908,6 @@ GameObject:
   - component: {fileID: 6647514691299701158}
   - component: {fileID: 2318533073548889330}
   - component: {fileID: 126728737823484994}
-  - component: {fileID: 5765930910005981875}
-  - component: {fileID: 5811048046652522379}
   m_Layer: 0
   m_Name: Cube
   m_TagString: target
@@ -2111,38 +1987,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &5765930910005981875
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7632592517680540886}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &5811048046652522379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7632592517680540886}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6bc04411dbba8442892133190cc24bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 5811048048347445128}
-  id: 0
-  initialPosition: {x: 0.03, y: -2.83, z: 1.89}
-  initialRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8758850820892118815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2231,7 +2075,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8758850820892118815}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -2309,7 +2153,6 @@ GameObject:
   - component: {fileID: 1290286273106215981}
   - component: {fileID: 1953981775412876840}
   - component: {fileID: 2598480441294913265}
-  - component: {fileID: 6901510132015020064}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: wall
@@ -2389,19 +2232,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &6901510132015020064
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9151652890796700548}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
