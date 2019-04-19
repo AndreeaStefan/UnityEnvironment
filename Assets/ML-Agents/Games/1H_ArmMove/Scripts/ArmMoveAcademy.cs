@@ -1,4 +1,6 @@
-﻿using Games._1H_ArmMove.Scripts.Utils;
+﻿
+using System.Collections.Generic;
+using Games._1H_ArmMove.Scripts.Utils;
 using MLAgents;
 using UnityEngine;
 
@@ -43,7 +45,7 @@ namespace Games._1H_ArmMove.Scripts
         /// </summary>
         public float gravityMultiplier;
 
-        public float armScaleFactor = 1;
+        public List<BodyPartConstrain> constrains ;
 
         void State()
         {
@@ -57,7 +59,7 @@ namespace Games._1H_ArmMove.Scripts
             var config = Helper.LoadJson(path);
             if (config != null)
             {
-                armScaleFactor = config.arm_scale;
+                constrains = config;
             }
         }
     }
