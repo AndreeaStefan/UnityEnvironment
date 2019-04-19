@@ -4,7 +4,7 @@ Debug
 *.log
 Temp
 Packages
-metadata
+*.meta
 *Cache*
 linux
 .vs
