@@ -29,6 +29,7 @@ TagManager:
   - target
   - obstacle
   - arm
+  - hand
   layers:
   - Default
   - TransparentFX
