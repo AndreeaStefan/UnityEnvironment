@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 
-namespace Games._1ArmMove.Scripts
+namespace ArmMove
 {
     public class Target : MonoBehaviour
     {
         public ArmMoveAgent agent;
-        public bool isTriggered = false;
         public int id;
         public Vector3 initialPosition;
         public Quaternion initialRotation;
@@ -20,8 +20,7 @@ namespace Games._1ArmMove.Scripts
         {
             if (col.gameObject.CompareTag("arm"))
             {
-                if (!isTriggered) agent.IsTarget(id);
-                isTriggered = true;
+               agent.IsTarget(id);
             }
         }
 

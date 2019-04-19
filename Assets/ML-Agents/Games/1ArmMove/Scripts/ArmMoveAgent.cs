@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using Games._1ArmMove.Scripts.Utils;
 using MLAgents;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-namespace Games._1ArmMove.Scripts
+namespace ArmMove
 {
     public class ArmMoveAgent : Agent
     {
@@ -18,6 +19,7 @@ namespace Games._1ArmMove.Scripts
         public GameObject LeftArm;
         public GameObject RightArm;
         public List<Target> Targets;
+       
 
        // public List<GameObject> bodyPartsGO;
 
@@ -25,16 +27,15 @@ namespace Games._1ArmMove.Scripts
 
         [Range(0, 50)] public float RotationAmount = 20f;
 
-        Rigidbody _leftArmRb;
-        Rigidbody _rightArmRb;
         Rigidbody _agentRb;
         RayPerception _rayPer;
         Renderer _groundRenderer;
         Bounds _areaBounds;
         Material _groundMaterial;
         WallContact _detectWall;
-        private bool inArea;
+        private ArmSpawner _armSpawner;
 
+        public Dictionary<string, BodyPartConstrain> constrains;
 
         void Awake()
         {
@@ -43,7 +44,7 @@ namespace Games._1ArmMove.Scripts
             var config = Helper.LoadJson(path);
             if (config != null)
             {
-                _academy.constrains = config;
+                constrains = config;
             }
         }
 
@@ -51,9 +52,10 @@ namespace Games._1ArmMove.Scripts
         public override void InitializeAgent()
         {
             base.InitializeAgent();
-            inArea = true;
+
             _rayPer = GetComponent<RayPerception>();
             _agentRb = GetComponent<Rigidbody>();
+            _armSpawner = GetComponent<ArmSpawner>();
 
             _areaBounds = Ground.GetComponent<Collider>().bounds;
             _groundRenderer = Ground.GetComponent<Renderer>();
@@ -63,14 +65,26 @@ namespace Games._1ArmMove.Scripts
             _detectWall.agent = this;
 
 
-            bodyParts = new List<BodyPart>
-            {
-                new BodyPart(LeftArm, _academy.constrains[0]),
-                new BodyPart(RightArm, _academy.constrains[1])
-            };
+            bodyParts = new List<BodyPart>();
+
+            AddBodyParts(LeftArm.transform);
+            AddBodyParts(RightArm.transform);
+
         }
 
-        public void CollectBodyPartObservation(GameObject bp, Rigidbody rb)
+        private void AddBodyParts(Transform obj)
+        {
+
+            for (var i = 0; i < obj.childCount; i++)
+            {
+                bodyParts.Add(constrains.ContainsKey(obj.GetChild(i).name)
+                    ? new BodyPart(obj.GetChild(i), constrains[obj.GetChild(i).name])
+                    : new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
+                AddBodyParts(obj.GetChild(i));
+            }
+        }
+
+        public void CollectBodyPartObservation(Transform bp, Rigidbody rb)
         {
             AddVectorObs(bp.transform.localPosition);
             AddVectorObs(bp.transform.rotation);
@@ -86,7 +100,7 @@ namespace Games._1ArmMove.Scripts
             AddVectorObs(_areaBounds.max);
             foreach (var bp in bodyParts)
             {
-                CollectBodyPartObservation(bp.gameObject, bp.rb);
+                CollectBodyPartObservation(bp.transform, bp.rb);
             }
          
 
@@ -95,7 +109,6 @@ namespace Games._1ArmMove.Scripts
             AddVectorObs(_rayPer.Perceive(rayDistance, rayAngles, detectableObjects, 0f, 0f));
             foreach (var target in Targets)
             {
-                AddVectorObs(target.isTriggered);
                 AddVectorObs(target.transform.localPosition);
             }
 
@@ -192,7 +205,6 @@ namespace Games._1ArmMove.Scripts
             var count = 0;
             foreach (var target in Targets)
             {
-                target.isTriggered = false;
                 target.id = count;
                 target.ResetTransform();
                 target.transform.position = GetRandomSpawnPosition();
@@ -244,24 +256,14 @@ namespace Games._1ArmMove.Scripts
             AddReward(5);
             StartCoroutine(GoalScoredSwapGroundMaterial(_academy.successMaterial, 0.5f));
 
-            Targets[id].isTriggered = false;
             Targets[id].ResetTransform();
             Targets[id].transform.position = GetRandomSpawnPosition();
-            var waitForSeconds = new WaitForSeconds(0.2f);
-            /*
-            if (_numberOfTargetsTouched >= MAX_TARGETS)
-            {
-                AddReward(10);
-                Done();
-                Debug.Log("DONE!!!");
-            }
-            */
+
         }
 
         public void IsWall()
         {
             AddReward(-1f);
-            // Done();
         }
 
 

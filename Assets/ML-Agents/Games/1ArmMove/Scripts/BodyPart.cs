@@ -1,13 +1,14 @@
-﻿using Games._1ArmMove.Scripts.Utils;
+﻿
+using System;
 using UnityEngine;
 
-namespace Games._1ArmMove.Scripts
+namespace ArmMove
 {
     public class BodyPart
     {
         public string Name;
 
-        public GameObject gameObject;
+        public Transform transform;
         public Rigidbody rb;
         public Vector3 initialPosition;
         public Quaternion initialRotation;
@@ -16,38 +17,50 @@ namespace Games._1ArmMove.Scripts
         public CharacterJoint joint;
         public BodyPartConstrain constrains;
 
-        public BodyPart(GameObject gameObject, BodyPartConstrain constrains)
+        public BodyPart(Transform transform, BodyPartConstrain constrains)
         {
 
-            this.gameObject = gameObject;
+            this.transform =  transform;
             this.constrains = constrains;
-            initialPosition = gameObject.transform.position;
-            initialRotation = gameObject.transform.rotation;
+            initialPosition = this.transform.position;
+            initialRotation = this.transform.rotation;
 
-            rb = gameObject.GetComponent<Rigidbody>();
-            joint = gameObject.GetComponent<CharacterJoint>();
+            rb = this.transform.GetComponent<Rigidbody>();
+            joint = this.transform.GetComponent<CharacterJoint>();
+
+           
+
             if (joint)
             {
+                var connectedBody = joint.connectedBody;
+
+                while (connectedBody.GetComponent<Collider>().bounds.Intersects(transform.GetComponent<Collider>().bounds))
+                {
+                    this.transform.position += new Vector3(0, 0, 0.01f * Math.Sign(this.transform.localPosition.z));
+                    joint.connectedAnchor += new Vector3(0, 0.01f, 0) *  Math.Sign(this.transform.localPosition.z) * -1;
+                }
+              
+
                 joint.highTwistLimit = new SoftJointLimit{limit = constrains.HighTwistLimit };
                 joint.lowTwistLimit = new SoftJointLimit { limit = constrains.LowTwistLimit };
                 joint.swing1Limit = new SoftJointLimit { limit = constrains.SwingLimit1 };
                 joint.swing2Limit = new SoftJointLimit { limit = constrains.SwingLimit2 };
             }
 
-            var scaleX = gameObject.transform.localScale.x * constrains.ScaleX;
-            var scaleY = gameObject.transform.localScale.y * constrains.ScaleY;
-            var scaleZ = gameObject.transform.localScale.z * constrains.ScaleZ;
+            var scaleX = this.transform.localScale.x * constrains.ScaleX;
+            var scaleY = this.transform.localScale.y * constrains.ScaleY;
+            var scaleZ = this.transform.localScale.z * constrains.ScaleZ;
 
             scale = new Vector3(scaleX, scaleY, scaleZ);
 
-            gameObject.transform.localScale = scale;
+            this.transform.localScale = scale;
         }
 
         public void ResetBodyPart()
         {
-            gameObject.transform.position = initialPosition;
-            gameObject.transform.rotation = initialRotation;
-            gameObject.transform.localScale = scale;
+            transform.position = initialPosition;
+            transform.rotation = initialRotation;
+            transform.localScale = scale;
         }
 
     }

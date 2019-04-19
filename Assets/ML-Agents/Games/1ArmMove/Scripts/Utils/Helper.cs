@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace Games._1ArmMove.Scripts.Utils
+
+namespace ArmMove
 {
     public static class Helper
     {
-        public static List<BodyPartConstrain> LoadJson(string filePath)
+        public static Dictionary<string, BodyPartConstrain> LoadJson(string filePath)
         {
             if (File.Exists(filePath))
             {
                 var reader = new StreamReader(filePath);
                 string json = reader.ReadToEnd();
-                List<BodyPartConstrain> config = JsonConvert.DeserializeObject<List<BodyPartConstrain>>(json);
+                Dictionary<string, BodyPartConstrain> config = JsonConvert.DeserializeObject<Dictionary<string, BodyPartConstrain>>(json);
                 return config;
             }
 

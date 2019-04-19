@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Games._1ArmMove.Scripts
+namespace ArmMove
 {
     public class WallContact : MonoBehaviour
     {

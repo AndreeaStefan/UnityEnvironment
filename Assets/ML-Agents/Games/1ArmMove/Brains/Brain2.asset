@@ -10,17 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b23992c8eb17439887f5e944bf04a40, type: 3}
-  m_Name: ArmMoveBrain
+  m_Name: Brain2
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 69
+    vectorObservationSize: 121
     numStackedVectorObservations: 3
-    vectorActionSize: 070000000500000005000000
+    vectorActionSize: 07000000050000000500000005000000050000000500000005000000
     cameraResolutions: []
     vectorActionDescriptions:
     - 
     - 
     - 
+    - 
+    - 
+    - 
+    - 
     vectorActionSpaceType: 0
-  model: {fileID: 11400000, guid: c1bcbe2fb181f4241aa2eb8dc4b957a0, type: 3}
+  model: {fileID: 11400000, guid: 43cb4b847b736cb45adf5df087a73428, type: 3}
   inferenceDevice: 0

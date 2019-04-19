@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Games._1ArmMove.Scripts.Utils;
+﻿
+using System.Collections.Generic;
 using MLAgents;
 using UnityEngine;
 
-namespace Games._1ArmMove.Scripts
+namespace ArmMove
 {
     public class ArmMoveAcademy : Academy
     {
@@ -52,14 +52,5 @@ namespace Games._1ArmMove.Scripts
 
         }
 
-        public override void AcademyReset()
-        {
-            var path = "E:\\Andreea\\Projects\\Git\\AvatarMaker\\AvatarMaker\\specification.json";
-            var config = Helper.LoadJson(path);
-            if (config != null)
-            {
-                constrains = config;
-            }
-        }
     }
 }
