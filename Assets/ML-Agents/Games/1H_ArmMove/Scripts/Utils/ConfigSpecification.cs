@@ -1,4 +1,4 @@
-﻿namespace Assets.ML_Agents.Examples._1ArmMove.Scripts
+﻿namespace ArmMove
 {
     public class ConfigSpecification
     {
