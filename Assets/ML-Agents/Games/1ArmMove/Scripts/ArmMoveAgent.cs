@@ -65,7 +65,7 @@ namespace ArmMove
             _detectWall = GetComponent<WallContact>();
             _detectWall.agent = this;
 
-            _targets = TargetsContainer.GetComponentsInChildren<Transform>().ToList();
+            _targets = TargetsContainer.GetComponentsInChildren<Transform>().Skip(1).ToList();
 
             bodyParts = new List<BodyPart>();
 
@@ -79,10 +79,14 @@ namespace ArmMove
 
             for (var i = 0; i < obj.childCount; i++)
             {
-                bodyParts.Add(constrains.ContainsKey(obj.GetChild(i).name)
-                    ? new BodyPart(obj.GetChild(i), constrains[obj.GetChild(i).name])
-                    : new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
-               
+                if (constrains != null)
+                    bodyParts.Add(constrains.ContainsKey(obj.GetChild(i).name)
+                        ? new BodyPart(obj.GetChild(i), constrains[obj.GetChild(i).name])
+                        : new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
+                else
+                    bodyParts.Add(new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
+
+
             }
         }
 
@@ -344,7 +348,7 @@ namespace ArmMove
             return randomSpawnPos;
         }
 
-        public void IsTarget(int id)
+        public void IsTarget()
         {
             Debug.Log("Targets hit " + _numberOfTargetsTouched);
             _numberOfTargetsTouched += 1;
