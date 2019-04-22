@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MLAgents;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -18,8 +19,8 @@ namespace ArmMove
         public GameObject Area;
         public GameObject LeftArm;
         public GameObject RightArm;
-        public List<Target> Targets;
-       
+        public GameObject TargetsContainer;
+        private List<Transform> _targets;
 
        // public List<GameObject> bodyPartsGO;
 
@@ -40,7 +41,7 @@ namespace ArmMove
         void Awake()
         {
             _academy = FindObjectOfType<ArmMoveAcademy>();
-            var path = "E:\\Andreea\\Projects\\Git\\AvatarMaker\\AvatarMaker\\specification.json";
+            var path = "../../../../config/specification.json";
             var config = Helper.LoadJson(path);
             if (config != null)
             {
@@ -64,6 +65,7 @@ namespace ArmMove
             _detectWall = GetComponent<WallContact>();
             _detectWall.agent = this;
 
+            _targets = TargetsContainer.GetComponentsInChildren<Transform>().ToList();
 
             bodyParts = new List<BodyPart>();
 
@@ -107,7 +109,7 @@ namespace ArmMove
             float[] rayAngles = {0f, 45f, 90f, 135f, 180f, 110f, 70f};
             var detectableObjects = new[] {"wall", "target"};
             AddVectorObs(_rayPer.Perceive(rayDistance, rayAngles, detectableObjects, 0f, 0f));
-            foreach (var target in Targets)
+            foreach (var target in _targets)
             {
                 AddVectorObs(target.transform.localPosition);
             }
@@ -273,13 +275,9 @@ namespace ArmMove
             _agentRb.velocity = Vector3.zero;
             _agentRb.angularVelocity = Vector3.zero;
             _numberOfTargetsTouched = 0;
-            var count = 0;
-            foreach (var target in Targets)
+            foreach (var target in _targets)
             {
-                target.id = count;
-                target.ResetTransform();
-                target.transform.position = GetRandomSpawnTargetPosition();
-                count += 1;
+                target.transform.position = GetRandomSpawnPosition();
             }
 
             foreach (var bp in bodyParts)
@@ -348,15 +346,15 @@ namespace ArmMove
 
         public void IsTarget(int id)
         {
-
             Debug.Log("Targets hit " + _numberOfTargetsTouched);
             _numberOfTargetsTouched += 1;
             AddReward(5);
             StartCoroutine(GoalScoredSwapGroundMaterial(_academy.successMaterial, 0.5f));
-
-            Targets[id].ResetTransform();
-            Targets[id].transform.position = GetRandomSpawnPosition();
-
+        }
+        
+        public void ResetTarget(GameObject target)
+        {
+            target.transform.position = GetRandomSpawnPosition();
         }
 
         public void IsWall()

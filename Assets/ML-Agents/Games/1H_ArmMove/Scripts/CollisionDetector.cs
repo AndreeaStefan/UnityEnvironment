@@ -2,18 +2,21 @@
 
 namespace Games._1H_ArmMove.Scripts
 {
-    public class CollisionDetector : MonoBehaviour
+    public class TargetCollisionDetector : MonoBehaviour
     {
         public ArmMoveAgent agent; 
 
-        void OnCollisionEnter(Collision col)
+        private void OnTriggerEnter(Collider other)
         {
-            if (col.gameObject.CompareTag("wall"))
+            if (other.gameObject.CompareTag("target"))
+            {
+                agent.IsTarget();
+                agent.ResetTarget(other.gameObject);
+            }
+            else if (other.gameObject.CompareTag("wall"))
             {
                 agent.IsWall();
             }
-
         }
     }
 }
-

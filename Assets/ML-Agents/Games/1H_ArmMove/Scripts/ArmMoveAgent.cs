@@ -8,7 +8,7 @@ namespace Games._1H_ArmMove.Scripts
 {
     public class ArmMoveAgent : Agent
     {
-        private ArmMoveAcademy _academy;
+        private HArmMoveAcademy _academy;
 
         public GameObject Ground;
         public GameObject Area;
@@ -31,8 +31,6 @@ namespace Games._1H_ArmMove.Scripts
         private Quaternion _leftInitialRotation;
         private Quaternion _rightInitialRotation;
 
-        private CollisionDetector _collider;
-
         private Transform _leftHand;
         private Transform _rightHand;
         private List<Quaternion> _rotationWalls;
@@ -40,7 +38,7 @@ namespace Games._1H_ArmMove.Scripts
 
         void Awake()
         {
-            _academy = FindObjectOfType<ArmMoveAcademy>();
+            _academy = FindObjectOfType<HArmMoveAcademy>();
         }
 
 
@@ -101,28 +99,28 @@ namespace Games._1H_ArmMove.Scripts
             MoveAgent(vectorAction);
         }
 
-//    private void Update()
-//    {
-//        if (Input.GetKey("up"))
-//        {
-//            MoveAgent(new float [] {1f,0f,0f,0f,0f,0f});
-//        }
-//
-//        if (Input.GetKey("down"))
-//        {
-//            MoveAgent(new float [] {-1f,0f,0f,0f,0f,0f});
-//        }
-//
-//        if (Input.GetKey("left"))
-//        {
-//            MoveAgent(new float [] {0f,1f,0f,0f,0f,0f});
-//        }
-//
-//        if (Input.GetKey("right"))
-//        {
-//            MoveAgent(new float [] {0f,-1f,0f,0f,0f,0f});
-//        }
-//    }
+    private void Update()
+    {
+        if (Input.GetKey("up"))
+        {
+            MoveAgent(new float [] {1f,0f,0f,0f,0f,0f});
+        }
+
+        if (Input.GetKey("down"))
+        {
+            MoveAgent(new float [] {-1f,0f,0f,0f,0f,0f});
+        }
+
+        if (Input.GetKey("left"))
+        {
+            MoveAgent(new float [] {0f,1f,0f,0f,0f,0f});
+        }
+
+        if (Input.GetKey("right"))
+        {
+            MoveAgent(new float [] {0f,-1f,0f,0f,0f,0f});
+        }
+    }
 
         /// <summary>
         /// Moves the agent according to the selected action.
