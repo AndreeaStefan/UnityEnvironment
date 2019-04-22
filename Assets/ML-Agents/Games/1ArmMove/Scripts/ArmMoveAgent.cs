@@ -80,7 +80,7 @@ namespace ArmMove
                 bodyParts.Add(constrains.ContainsKey(obj.GetChild(i).name)
                     ? new BodyPart(obj.GetChild(i), constrains[obj.GetChild(i).name])
                     : new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
-                AddBodyParts(obj.GetChild(i));
+               
             }
         }
 
@@ -121,6 +121,77 @@ namespace ArmMove
 
             // Penalty given each step to encourage agent to finish task quickly.
             AddReward(-1f / agentParameters.maxStep);
+        }
+
+
+        /// <summary>
+        /// Moves the agent according to the selected action.
+        /// </summary>
+        public void MoveAgent2(float[] act)
+        {
+
+            var dirToGo = Vector3.zero;
+            var rotateDir = Vector3.zero;
+
+            var moveBody = (int)act[0];
+
+            switch (moveBody)
+            {
+                case 1:
+                    dirToGo = transform.forward * 1f;
+                    break;
+                case 2:
+                    rotateDir = transform.up * -1f;
+                    break;
+                case 3:
+                    rotateDir = transform.up * 1f;
+                    break;
+                case 4:
+                    dirToGo = transform.right * -0.75f;
+                    break;
+                case 5:
+                    dirToGo = transform.right * 0.75f;
+                    break;
+                case 6:
+                    dirToGo = transform.forward * -0.5f;
+                    break;
+            }
+
+
+            for(var j = 0; j< bodyParts.Count; j ++)
+            {
+                var moveBodyPart = (int)act[0]; // the actions for the i'th body part
+                var rotation = Vector3.zero;
+      
+                if (moveBodyPart == j * 4 + 7)
+                 rotation = RightArm.transform.right * 0.75f * RotationAmount;
+
+                if (moveBodyPart == j * 4 + 8)
+                    rotation = RightArm.transform.right * -0.75f * RotationAmount;
+
+                if (moveBodyPart == j * 4 + 9)
+                    rotation = RightArm.transform.forward * -0.75f * RotationAmount;
+
+                if (moveBodyPart == j * 4 + 10)
+                     rotation = RightArm.transform.forward * 0.75f * RotationAmount;
+                                      
+                //ToDo: improve  indexing 
+                bodyParts[j].rb.AddTorque(rotation, ForceMode.VelocityChange);
+            }
+
+            transform.Rotate(rotateDir, Time.fixedDeltaTime * 100f);
+            _agentRb.MovePosition(transform.position + dirToGo * _academy.agentRunSpeed * Time.deltaTime);
+
+            var posX = Ground.transform.position.x + transform.localPosition.x;
+            var posZ = Ground.transform.position.z + transform.localPosition.z;
+            if (posX < _areaBounds.min.x || posX > _areaBounds.max.x ||
+                posZ < _areaBounds.min.z || posZ > _areaBounds.max.z)
+            {
+                AddReward(-5);
+                Debug.Log("Outside game area");
+                Done();
+
+            }
         }
 
         /// <summary>
@@ -207,7 +278,7 @@ namespace ArmMove
             {
                 target.id = count;
                 target.ResetTransform();
-                target.transform.position = GetRandomSpawnPosition();
+                target.transform.position = GetRandomSpawnTargetPosition();
                 count += 1;
             }
 
@@ -237,6 +308,33 @@ namespace ArmMove
                     _areaBounds.extents.z * _academy.spawnAreaMarginMultiplier);
 
                 randomSpawnPos = Ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
+
+                // Checks if not colliding with anything
+                if (Physics.CheckBox(randomSpawnPos, new Vector3(1f, 0.01f, 1f)) == false)
+                {
+                    foundNewSpawnLocation = true;
+                }
+            }
+
+            return randomSpawnPos;
+        }
+
+
+        private Vector3 GetRandomSpawnTargetPosition()
+        {
+            var foundNewSpawnLocation = false;
+            var randomSpawnPos = Vector3.zero;
+            while (foundNewSpawnLocation == false)
+            {
+                var randomPosX = Random.Range(-_areaBounds.extents.x * _academy.spawnAreaMarginMultiplier,
+                    _areaBounds.extents.x * _academy.spawnAreaMarginMultiplier);
+
+                var randomPosZ = Random.Range(-_areaBounds.extents.z * _academy.spawnAreaMarginMultiplier,
+                    _areaBounds.extents.z * _academy.spawnAreaMarginMultiplier);
+
+                var randomPosY = Random.Range(1f, 2.5f);
+
+                randomSpawnPos = Ground.transform.position + new Vector3(randomPosX, randomPosY, randomPosZ);
 
                 // Checks if not colliding with anything
                 if (Physics.CheckBox(randomSpawnPos, new Vector3(1f, 0.01f, 1f)) == false)

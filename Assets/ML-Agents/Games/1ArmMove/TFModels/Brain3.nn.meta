@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 50e79d3ae64f95648beb8ca33ee6adac
+ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: Assets/ML-Agents/Games/1ArmMove/TFModels/Brain3.nn
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 83221ad3db87f4b3b91b041047cb2bc5, type: 3}
