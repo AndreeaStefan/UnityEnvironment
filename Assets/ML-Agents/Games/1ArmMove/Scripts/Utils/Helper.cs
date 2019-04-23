@@ -8,13 +8,13 @@ namespace ArmMove
 {
     public static class Helper
     {
-        public static Dictionary<string, BodyPartConstrain> LoadJson(string filePath)
+        public static dynamic LoadJson(string filePath)
         {
             if (File.Exists(filePath))
             {
                 var reader = new StreamReader(filePath);
                 string json = reader.ReadToEnd();
-                Dictionary<string, BodyPartConstrain> config = JsonConvert.DeserializeObject<Dictionary<string, BodyPartConstrain>>(json);
+                var config = JsonConvert.DeserializeObject<dynamic>(json);
                 return config;
             }
 

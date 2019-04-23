@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ArmMove
@@ -15,13 +16,12 @@ namespace ArmMove
         public Vector3 scale;
 
         public CharacterJoint joint;
-        public BodyPartConstrain constrains;
+        public BodyPartConstraint constraints;
 
-        public BodyPart(Transform transform, BodyPartConstrain constrains)
+        public BodyPart(Transform transform, BodyPartConstraint constraints)
         {
-
             this.transform =  transform;
-            this.constrains = constrains;
+            this.constraints = constraints;
             initialPosition = this.transform.position;
             initialRotation = this.transform.rotation;
 
@@ -41,15 +41,15 @@ namespace ArmMove
                 }
               
 
-                joint.highTwistLimit = new SoftJointLimit{limit = constrains.HighTwistLimit };
-                joint.lowTwistLimit = new SoftJointLimit { limit = constrains.LowTwistLimit };
-                joint.swing1Limit = new SoftJointLimit { limit = constrains.SwingLimit1 };
-                joint.swing2Limit = new SoftJointLimit { limit = constrains.SwingLimit2 };
+                joint.highTwistLimit = new SoftJointLimit{limit = constraints.HighTwistLimit };
+                joint.lowTwistLimit = new SoftJointLimit { limit = constraints.LowTwistLimit };
+                joint.swing1Limit = new SoftJointLimit { limit = constraints.SwingLimit1 };
+                joint.swing2Limit = new SoftJointLimit { limit = constraints.SwingLimit2 };
             }
 
-            var scaleX = this.transform.localScale.x * constrains.ScaleX;
-            var scaleY = this.transform.localScale.y * constrains.ScaleY;
-            var scaleZ = this.transform.localScale.z * constrains.ScaleZ;
+            var scaleX = this.transform.localScale.x * constraints.ScaleX;
+            var scaleY = this.transform.localScale.y * constraints.ScaleY;
+            var scaleZ = this.transform.localScale.z * constraints.ScaleZ;
 
             scale = new Vector3(scaleX, scaleY, scaleZ);
 

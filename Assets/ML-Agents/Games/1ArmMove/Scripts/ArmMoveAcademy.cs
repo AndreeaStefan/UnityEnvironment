@@ -44,7 +44,7 @@ namespace ArmMove
         /// </summary>
         public float gravityMultiplier;
 
-        public List<BodyPartConstrain> constrains ;
+        public List<BodyPartConstraint> constrains ;
 
         void State()
         {

@@ -1,0 +1,46 @@
+{
+  "limbs": [
+    {
+      "Name": "LeftLowerArm",
+      "ScaleX": 1,
+      "ScaleY": 1,
+      "ScaleZ": 1,
+      "LowTwistLimit": 0,
+      "HighTwistLimit": 0,
+      "SwingLimit1": 90,
+      "SwingLimit2": 0,
+      "parent": {
+        "Name": "LeftArm",
+        "ScaleX": 1,
+        "ScaleY": 1,
+        "ScaleZ": 1,
+        "LowTwistLimit": -90,
+        "HighTwistLimit": 146,
+        "SwingLimit1": 48,
+        "SwingLimit2": 0,
+        "parent": null
+      }
+    },
+    {
+      "Name": "RightLowerArm",
+      "ScaleX": 1,
+      "ScaleY": 1,
+      "ScaleZ": 1,
+      "LowTwistLimit": 0,
+      "HighTwistLimit": 0,
+      "SwingLimit1": 90,
+      "SwingLimit2": 0,
+      "parent": {
+        "Name": "RightArm",
+        "ScaleX": 1,
+        "ScaleY": 1,
+        "ScaleZ": 1,
+        "LowTwistLimit": -90,
+        "HighTwistLimit": 146,
+        "SwingLimit1": 48,
+        "SwingLimit2": 0,
+        "parent": null
+      }
+    }
+  ]
+}

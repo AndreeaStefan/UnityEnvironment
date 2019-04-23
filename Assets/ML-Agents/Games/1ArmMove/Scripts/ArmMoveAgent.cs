@@ -12,20 +12,19 @@ namespace ArmMove
     {
 
         private ArmMoveAcademy _academy;
-        private const int MAX_TARGETS = 3;
-        private int _numberOfTargetsTouched = 0;
+        private int _numberOfTargetsTouched;
 
         public GameObject Ground;
         public GameObject Area;
         public GameObject LeftArm;
         public GameObject RightArm;
+        public GameObject LimbsContainer;
         public GameObject TargetsContainer;
         private List<Transform> _targets;
 
-       // public List<GameObject> bodyPartsGO;
-
-        [HideInInspector] public List<BodyPart> bodyParts;
-
+        private List<LinkedList<Transform>> _limbsTransforms;
+        private List<BodyPart> _bodyParts;
+        
         [Range(0, 50)] public float RotationAmount = 20f;
 
         Rigidbody _agentRb;
@@ -34,14 +33,13 @@ namespace ArmMove
         Bounds _areaBounds;
         Material _groundMaterial;
         WallContact _detectWall;
-        private ArmSpawner _armSpawner;
 
-        public Dictionary<string, BodyPartConstrain> constrains;
+        public dynamic constrains;
 
         void Awake()
         {
             _academy = FindObjectOfType<ArmMoveAcademy>();
-            var path = "../../../../config/specification.json";
+            var path = "Assets/config/specification.json";
             var config = Helper.LoadJson(path);
             if (config != null)
             {
@@ -53,10 +51,9 @@ namespace ArmMove
         public override void InitializeAgent()
         {
             base.InitializeAgent();
-
             _rayPer = GetComponent<RayPerception>();
             _agentRb = GetComponent<Rigidbody>();
-            _armSpawner = GetComponent<ArmSpawner>();
+            
 
             _areaBounds = Ground.GetComponent<Collider>().bounds;
             _groundRenderer = Ground.GetComponent<Renderer>();
@@ -67,27 +64,43 @@ namespace ArmMove
 
             _targets = TargetsContainer.GetComponentsInChildren<Transform>().Skip(1).ToList();
 
-            bodyParts = new List<BodyPart>();
-
-            AddBodyParts(LeftArm.transform);
-            AddBodyParts(RightArm.transform);
-
+            
+            // Automatically adding all the bones of limbs;
+            // Each limb ought to end with a child object with tag "hand"
+            var hands = Finder.ChildrenWithTag(LimbsContainer.transform, "hand");
+            _limbsTransforms = new List<LinkedList<Transform>>();
+            _bodyParts = new List<BodyPart>();
+            SetLimbs(hands);
         }
 
-        private void AddBodyParts(Transform obj)
+
+        private void SetLimbs(List<Transform> hands)
         {
+            var limbsConfigs = constrains["limbs"];
 
-            for (var i = 0; i < obj.childCount; i++)
+            var i = 0;
+            hands.ForEach(h =>
             {
-                if (constrains != null)
-                    bodyParts.Add(constrains.ContainsKey(obj.GetChild(i).name)
-                        ? new BodyPart(obj.GetChild(i), constrains[obj.GetChild(i).name])
-                        : new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
-                else
-                    bodyParts.Add(new BodyPart(obj.GetChild(i), BodyPartConstrain.GetDefault()));
+                var bones = new LinkedList<Transform>();
+                var limbConfig = limbsConfigs[i];
 
+                var bone = h.parent;
+                var joint = bone.GetComponent<Joint>();
 
-            }
+                while (joint)
+                {
+                    _bodyParts.Add( new BodyPart(bone, new BodyPartConstraint(limbConfig)));
+                    bones.AddFirst(bone);
+                    
+                    limbConfig = limbConfig["parent"];
+                    bone = joint.connectedBody.transform;
+                    joint = bone.GetComponent<Joint>();
+                }
+
+                i++;
+                _limbsTransforms.Add(bones);
+            });
+            
         }
 
         public void CollectBodyPartObservation(Transform bp, Rigidbody rb)
@@ -104,7 +117,7 @@ namespace ArmMove
             var rayDistance = 10f;
             AddVectorObs(_areaBounds.min);
             AddVectorObs(_areaBounds.max);
-            foreach (var bp in bodyParts)
+            foreach (var bp in _bodyParts)
             {
                 CollectBodyPartObservation(bp.transform, bp.rb);
             }
@@ -164,7 +177,7 @@ namespace ArmMove
             }
 
 
-            for(var j = 0; j< bodyParts.Count; j ++)
+            for(var j = 0; j< _bodyParts.Count; j ++)
             {
                 var moveBodyPart = (int)act[0]; // the actions for the i'th body part
                 var rotation = Vector3.zero;
@@ -182,7 +195,7 @@ namespace ArmMove
                      rotation = RightArm.transform.forward * 0.75f * RotationAmount;
                                       
                 //ToDo: improve  indexing 
-                bodyParts[j].rb.AddTorque(rotation, ForceMode.VelocityChange);
+                _bodyParts[j].rb.AddTorque(rotation, ForceMode.VelocityChange);
             }
 
             transform.Rotate(rotateDir, Time.fixedDeltaTime * 100f);
@@ -254,7 +267,7 @@ namespace ArmMove
                 }
 
                 //ToDo: improve  indexing 
-                bodyParts[i-1].rb.AddTorque(rotation, ForceMode.VelocityChange);
+                _bodyParts[i-1].rb.AddTorque(rotation, ForceMode.VelocityChange);
             }
 
             transform.Rotate(rotateDir, Time.fixedDeltaTime * 100f);
@@ -284,7 +297,7 @@ namespace ArmMove
                 target.transform.position = GetRandomSpawnPosition();
             }
 
-            foreach (var bp in bodyParts)
+            foreach (var bp in _bodyParts)
             {
                 bp.ResetBodyPart();
             }

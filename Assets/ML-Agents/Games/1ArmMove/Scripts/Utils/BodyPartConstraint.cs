@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArmMove
 {
-    public class BodyPartConstrain
+    public class BodyPartConstraint
     {
         // to identify the corresponding body part
         public string Name;
@@ -21,9 +21,23 @@ namespace ArmMove
         public float SwingLimit1 ;
         public float SwingLimit2 ;
 
-        public static BodyPartConstrain GetDefault()
+        BodyPartConstraint(){}
+        
+        public BodyPartConstraint(dynamic source)
         {
-            return new BodyPartConstrain
+            Name = source["Name"];
+            ScaleX = source["ScaleX"];
+            ScaleY = source["ScaleY"];
+            ScaleZ = source["ScaleZ"];
+            LowTwistLimit = source["LowTwistLimit"];
+            HighTwistLimit = source["HighTwistLimit"];
+            SwingLimit1 = source["SwingLimit1"];
+            SwingLimit2 = source["SwingLimit2"];
+        }
+
+        public static BodyPartConstraint GetDefault()
+        {
+            return new BodyPartConstraint
             {
                 Name = "default",
                 ScaleX = 1,
@@ -32,9 +46,9 @@ namespace ArmMove
                 LowTwistLimit = -20,
                 HighTwistLimit = 70,
                 SwingLimit1 = 40,
-                SwingLimit2 = 40,
+                SwingLimit2 = 40
             };
         }
-
+       
     }
 }
