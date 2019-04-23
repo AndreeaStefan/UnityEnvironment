@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MLAgents;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace ArmMove
@@ -11,30 +12,27 @@ namespace ArmMove
     public class ArmMoveAgent : Agent
     {
 
-        private ArmMoveAcademy _academy;
-        private int _numberOfTargetsTouched;
-
-        public GameObject Ground;
-        public GameObject Area;
-        public GameObject LeftArm;
+        [FormerlySerializedAs("Ground")] public GameObject Floor;
         public GameObject RightArm;
         public GameObject LimbsContainer;
         public GameObject TargetsContainer;
+        public GameObject Root;
+        private ArmMoveAcademy _academy;
+        
         private List<Transform> _targets;
-
-        private List<LinkedList<Transform>> _limbsTransforms;
-        private List<BodyPart> _bodyParts;
+        private List<Transform> _limbsTransform;
+        private List<AnhaBodyPart> _limbsBodyParts;
+        private List<Transform> _hands;
+        private JointDriveController _jdController;
         
         [Range(0, 50)] public float RotationAmount = 20f;
 
-        Rigidbody _agentRb;
-        RayPerception _rayPer;
-        Renderer _groundRenderer;
-        Bounds _areaBounds;
-        Material _groundMaterial;
-        WallContact _detectWall;
+        private Rigidbody _agentRb;
+        private Renderer _groundRenderer;
+        private Bounds _areaBounds;
+        private Material _groundMaterial;
 
-        public dynamic constrains;
+        [FormerlySerializedAs("constrains")] public dynamic limbsConfig;
 
         void Awake()
         {
@@ -43,7 +41,7 @@ namespace ArmMove
             var config = Helper.LoadJson(path);
             if (config != null)
             {
-                constrains = config;
+                limbsConfig = config;
             }
         }
 
@@ -51,37 +49,36 @@ namespace ArmMove
         public override void InitializeAgent()
         {
             base.InitializeAgent();
-            _rayPer = GetComponent<RayPerception>();
-            _agentRb = GetComponent<Rigidbody>();
+            _limbsTransform = new List<Transform>();
+            _limbsBodyParts = new List<AnhaBodyPart>();
             
-
-            _areaBounds = Ground.GetComponent<Collider>().bounds;
-            _groundRenderer = Ground.GetComponent<Renderer>();
+            _agentRb = Root.GetComponent<Rigidbody>();
+            _areaBounds = Floor.GetComponent<Collider>().bounds;
+            _groundRenderer = Floor.GetComponent<Renderer>();
             _groundMaterial = _groundRenderer.material;
-
-            _detectWall = GetComponent<WallContact>();
-            _detectWall.agent = this;
 
             _targets = TargetsContainer.GetComponentsInChildren<Transform>().Skip(1).ToList();
 
-            
             // Automatically adding all the bones of limbs;
             // Each limb ought to end with a child object with tag "hand"
-            var hands = Finder.ChildrenWithTag(LimbsContainer.transform, "hand");
-            _limbsTransforms = new List<LinkedList<Transform>>();
-            _bodyParts = new List<BodyPart>();
-            SetLimbs(hands);
+            _hands = Finder.ChildrenWithTag(LimbsContainer.transform, "hand");
+            SetLimbs();
+            
+            // SETTING UP THE joints CONTROLLER
+            _jdController = GetComponent<JointDriveController>();
+            _jdController.SetupBodyPart(Root.transform);
+            _limbsTransform.ForEach(bp => _jdController.SetupBodyPart(bp));
+
         }
 
 
-        private void SetLimbs(List<Transform> hands)
+        private void SetLimbs()
         {
-            var limbsConfigs = constrains["limbs"];
-
+            var limbsConfigs = limbsConfig["limbs"];
             var i = 0;
-            hands.ForEach(h =>
+            
+            _hands.ForEach(h =>
             {
-                var bones = new LinkedList<Transform>();
                 var limbConfig = limbsConfigs[i];
 
                 var bone = h.parent;
@@ -89,215 +86,101 @@ namespace ArmMove
 
                 while (joint)
                 {
-                    _bodyParts.Add( new BodyPart(bone, new BodyPartConstraint(limbConfig)));
-                    bones.AddFirst(bone);
+                    _limbsBodyParts.Add( new AnhaBodyPart(bone, new BodyPartConstraint(limbConfig)));
+                    _limbsTransform.Add(bone);
                     
                     limbConfig = limbConfig["parent"];
                     bone = joint.connectedBody.transform;
                     joint = bone.GetComponent<Joint>();
                 }
-
                 i++;
-                _limbsTransforms.Add(bones);
             });
             
         }
-
-        public void CollectBodyPartObservation(Transform bp, Rigidbody rb)
+        
+        public void CollectObservationBodyPart(BodyPart bp)
         {
-            AddVectorObs(bp.transform.localPosition);
-            AddVectorObs(bp.transform.rotation);
-            AddVectorObs(rb.angularVelocity);
-            AddVectorObs(rb.velocity);
+            if(bp.rb.transform != Root.transform)
+            {
+                AddVectorObs(bp.currentXNormalizedRot);
+                AddVectorObs(bp.currentYNormalizedRot);
+                AddVectorObs(bp.currentZNormalizedRot);
+                AddVectorObs(bp.currentStrength/_jdController.maxJointForceLimit);
+            }
         }
 
         public override void CollectObservations()
         {
-
-            var rayDistance = 10f;
-            AddVectorObs(_areaBounds.min);
-            AddVectorObs(_areaBounds.max);
-            foreach (var bp in _bodyParts)
+            foreach (var bodyPart in _jdController.bodyPartsDict.Values)
             {
-                CollectBodyPartObservation(bp.transform, bp.rb);
+                CollectObservationBodyPart(bodyPart);
             }
+            // Adding position of hands relative to the floor
+            _hands.ForEach(h => AddVectorObs(Helper.getRelativePosition(Floor.transform, h.position)));
+           // Local position of targets is already relative to the floor
+           _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
          
-
-            float[] rayAngles = {0f, 45f, 90f, 135f, 180f, 110f, 70f};
-            var detectableObjects = new[] {"wall", "target"};
-            AddVectorObs(_rayPer.Perceive(rayDistance, rayAngles, detectableObjects, 0f, 0f));
-            foreach (var target in _targets)
-            {
-                AddVectorObs(target.transform.localPosition);
-            }
-
         }
-
+        
+        
+        // the action space depends on the joints setting. If an axis is locked, no action is needed
         public override void AgentAction(float[] vectorAction, string textAction)
         {
-            // Move the agent using the action.
-            MoveAgent(vectorAction);
-
-            // Penalty given each step to encourage agent to finish task quickly.
-            AddReward(-1f / agentParameters.maxStep);
-        }
-
-
-        /// <summary>
-        /// Moves the agent according to the selected action.
-        /// </summary>
-        public void MoveAgent2(float[] act)
-        {
-
-            var dirToGo = Vector3.zero;
-            var rotateDir = Vector3.zero;
-
-            var moveBody = (int)act[0];
-
-            switch (moveBody)
+            var bpDict = _jdController.bodyPartsDict;
+            var iterator = vectorAction.GetEnumerator();
+            
+            _limbsBodyParts.ForEach(bp =>
             {
-                case 1:
-                    dirToGo = transform.forward * 1f;
-                    break;
-                case 2:
-                    rotateDir = transform.up * -1f;
-                    break;
-                case 3:
-                    rotateDir = transform.up * 1f;
-                    break;
-                case 4:
-                    dirToGo = transform.right * -0.75f;
-                    break;
-                case 5:
-                    dirToGo = transform.right * 0.75f;
-                    break;
-                case 6:
-                    dirToGo = transform.forward * -0.5f;
-                    break;
-            }
-
-
-            for(var j = 0; j< _bodyParts.Count; j ++)
-            {
-                var moveBodyPart = (int)act[0]; // the actions for the i'th body part
-                var rotation = Vector3.zero;
-      
-                if (moveBodyPart == j * 4 + 7)
-                 rotation = RightArm.transform.right * 0.75f * RotationAmount;
-
-                if (moveBodyPart == j * 4 + 8)
-                    rotation = RightArm.transform.right * -0.75f * RotationAmount;
-
-                if (moveBodyPart == j * 4 + 9)
-                    rotation = RightArm.transform.forward * -0.75f * RotationAmount;
-
-                if (moveBodyPart == j * 4 + 10)
-                     rotation = RightArm.transform.forward * 0.75f * RotationAmount;
-                                      
-                //ToDo: improve  indexing 
-                _bodyParts[j].rb.AddTorque(rotation, ForceMode.VelocityChange);
-            }
-
-            transform.Rotate(rotateDir, Time.fixedDeltaTime * 100f);
-            _agentRb.MovePosition(transform.position + dirToGo * _academy.agentRunSpeed * Time.deltaTime);
-
-            var posX = Ground.transform.position.x + transform.localPosition.x;
-            var posZ = Ground.transform.position.z + transform.localPosition.z;
-            if (posX < _areaBounds.min.x || posX > _areaBounds.max.x ||
-                posZ < _areaBounds.min.z || posZ > _areaBounds.max.z)
-            {
-                AddReward(-5);
-                Debug.Log("Outside game area");
-                Done();
-
-            }
-        }
-
-        /// <summary>
-        /// Moves the agent according to the selected action.
-        /// </summary>
-        public void MoveAgent(float[] act)
-        {
-
-            var dirToGo = Vector3.zero;
-            var rotateDir = Vector3.zero;
-
-            var moveBody = (int) act[0];
-           
-            switch (moveBody)
-            {
-                case 1:
-                    dirToGo = transform.forward * 1f;
-                    break;
-                case 2:
-                    rotateDir = transform.up * -1f;
-                    break;
-                case 3:
-                    rotateDir = transform.up * 1f;
-                    break;
-                case 4:
-                    dirToGo = transform.right * -0.75f;
-                    break;
-                case 5:
-                    dirToGo = transform.right * 0.75f;
-                    break;
-                case 6:
-                    dirToGo = transform.forward * -0.5f;
-                    break;
-            }
-
-            for (int i = 1; i < act.Length; i++)
-            {
-                var moveBodyPart = (int)act[i]; // the actions for the i'th body part
-                var rotation = Vector3.zero;
-                switch (moveBodyPart)
+                float x;
+                float y;
+                float z;
+                if((int) bp.constraints.LowTwistLimit == 0 && (int) bp.constraints.HighTwistLimit == 0)
+                    x = 0f;
+                else
                 {
-                    case 1:
-                        rotation = RightArm.transform.right * 0.75f * RotationAmount;
-                        break;
-                    case 2:
-                        rotation = RightArm.transform.right * -0.75f * RotationAmount;
-                        break;
-                    case 3:
-                        rotation = RightArm.transform.forward * -0.75f * RotationAmount;
-                        break;
-                    case 4:
-                        rotation = RightArm.transform.forward * 0.75f * RotationAmount;
-                        break;
+                    x = (float) iterator.Current;
+                    iterator.MoveNext();
                 }
+                if((int) bp.constraints.SwingLimit1 == 0)
+                    y = 0f;
+                else
+                {
+                    y = (float) iterator.Current;
+                    iterator.MoveNext();
+                }
+                if((int) bp.constraints.SwingLimit2 == 0)
+                    z = 0f;
+                else
+                {
+                    z = (float) iterator.Current;
+                    iterator.MoveNext();
+                }
+                
+                bpDict[bp.transform].SetJointTargetRotation(x, y, z);
+                bpDict[bp.transform].SetJointStrength((float) iterator.Current);
+                iterator.MoveNext();
 
-                //ToDo: improve  indexing 
-                _bodyParts[i-1].rb.AddTorque(rotation, ForceMode.VelocityChange);
-            }
-
-            transform.Rotate(rotateDir, Time.fixedDeltaTime * 100f);
-            _agentRb.MovePosition(transform.position + dirToGo * _academy.agentRunSpeed * Time.deltaTime);
-
-            var posX = Ground.transform.position.x + transform.localPosition.x;
-            var posZ = Ground.transform.position.z + transform.localPosition.z;
-            if (posX < _areaBounds.min.x || posX > _areaBounds.max.x ||
-                posZ < _areaBounds.min.z || posZ > _areaBounds.max.z)
-            {
-                AddReward(-5);
-                Debug.Log("Outside game area");
-                Done();
-
-            }
+            });
+            
+            // moving the agent part
+            var direction = Mathf.Clamp((float)iterator.Current, -1, 1);
+            iterator.MoveNext();
+            var rotation = Mathf.Clamp((float)iterator.Current, -1, 1);
+            transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 20 * rotation);
+            _agentRb.MovePosition(Root.transform.position + Root.transform.forward * direction * _academy.agentRunSpeed * Time.fixedDeltaTime);
         }
 
         public override void AgentReset()
         {
-
             transform.position = GetRandomSpawnPosition();
             _agentRb.velocity = Vector3.zero;
             _agentRb.angularVelocity = Vector3.zero;
-            _numberOfTargetsTouched = 0;
             foreach (var target in _targets)
             {
-                target.transform.position = GetRandomSpawnPosition();
+                target.transform.position = GetRandomSpawnTargetPosition();
             }
 
-            foreach (var bp in _bodyParts)
+            foreach (var bp in _limbsBodyParts)
             {
                 bp.ResetBodyPart();
             }
@@ -322,7 +205,7 @@ namespace ArmMove
                 var randomPosZ = Random.Range(-_areaBounds.extents.z * _academy.spawnAreaMarginMultiplier,
                     _areaBounds.extents.z * _academy.spawnAreaMarginMultiplier);
 
-                randomSpawnPos = Ground.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
+                randomSpawnPos = Floor.transform.position + new Vector3(randomPosX, 1f, randomPosZ);
 
                 // Checks if not colliding with anything
                 if (Physics.CheckBox(randomSpawnPos, new Vector3(1f, 0.01f, 1f)) == false)
@@ -334,49 +217,29 @@ namespace ArmMove
             return randomSpawnPos;
         }
 
-
         private Vector3 GetRandomSpawnTargetPosition()
         {
-            var foundNewSpawnLocation = false;
-            var randomSpawnPos = Vector3.zero;
-            while (foundNewSpawnLocation == false)
-            {
-                var randomPosX = Random.Range(-_areaBounds.extents.x * _academy.spawnAreaMarginMultiplier,
-                    _areaBounds.extents.x * _academy.spawnAreaMarginMultiplier);
-
-                var randomPosZ = Random.Range(-_areaBounds.extents.z * _academy.spawnAreaMarginMultiplier,
-                    _areaBounds.extents.z * _academy.spawnAreaMarginMultiplier);
-
-                var randomPosY = Random.Range(1f, 2.5f);
-
-                randomSpawnPos = Ground.transform.position + new Vector3(randomPosX, randomPosY, randomPosZ);
-
-                // Checks if not colliding with anything
-                if (Physics.CheckBox(randomSpawnPos, new Vector3(1f, 0.01f, 1f)) == false)
-                {
-                    foundNewSpawnLocation = true;
-                }
-            }
-
-            return randomSpawnPos;
+            var position = GetRandomSpawnPosition();
+            position.y = Random.Range(0.5f, 3.5f);
+            return position;
         }
 
         public void IsTarget()
         {
-            Debug.Log("Targets hit " + _numberOfTargetsTouched);
-            _numberOfTargetsTouched += 1;
             AddReward(5);
             StartCoroutine(GoalScoredSwapGroundMaterial(_academy.successMaterial, 0.5f));
         }
         
         public void ResetTarget(GameObject target)
         {
-            target.transform.position = GetRandomSpawnPosition();
+            target.transform.position = GetRandomSpawnTargetPosition();
         }
 
         public void IsWall()
         {
-            AddReward(-1f);
+            AddReward(-5f);
+            StartCoroutine(GoalScoredSwapGroundMaterial(_academy.failMaterial, 0.5f));
+            Done();
         }
 
 

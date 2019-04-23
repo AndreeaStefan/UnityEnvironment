@@ -60,9 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\AnhaBodyPart.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAcademy.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAgent.cs" />
-    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\BodyPart.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\CollisionDetector.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\ArmSpawner.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\BodyPartConstraint.cs" />
@@ -70,10 +70,10 @@
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\Helper.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\IConfigSpecification.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\WallContact.cs" />
-    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\ArmMoveAgent.cs" />
     <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\BodyPart.cs" />
     <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\CollisionDetector.cs" />
     <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\HArmMoveAcademy.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\HArmMoveAgent.cs" />
     <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\BodyPartConstrain.cs" />
     <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\ConfigSpecification.cs" />
     <Compile Include="Assets\ML-Agents\Games\1H_ArmMove\Scripts\Utils\Helper.cs" />

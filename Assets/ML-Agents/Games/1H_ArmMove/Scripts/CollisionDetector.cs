@@ -4,7 +4,7 @@ namespace Games._1H_ArmMove.Scripts
 {
     public class TargetCollisionDetector : MonoBehaviour
     {
-        public ArmMoveAgent agent; 
+        public HArmMoveAgent agent; 
 
         private void OnTriggerEnter(Collider other)
         {

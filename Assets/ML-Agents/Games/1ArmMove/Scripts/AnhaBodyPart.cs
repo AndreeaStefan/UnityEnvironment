@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ArmMove
 {
-    public class BodyPart
+    public class AnhaBodyPart
     {
         public string Name;
 
@@ -18,7 +18,7 @@ namespace ArmMove
         public CharacterJoint joint;
         public BodyPartConstraint constraints;
 
-        public BodyPart(Transform transform, BodyPartConstraint constraints)
+        public AnhaBodyPart(Transform transform, BodyPartConstraint constraints)
         {
             this.transform =  transform;
             this.constraints = constraints;
