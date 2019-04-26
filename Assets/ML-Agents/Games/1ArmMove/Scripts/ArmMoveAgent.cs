@@ -102,7 +102,8 @@ namespace ArmMove
 
         public override void CollectObservations()
         {
-            foreach (var bodyPart in _jdController.bodyPartsDict.Values)
+            // skip body
+            foreach (var bodyPart in _jdController.bodyPartsDict.Values.Skip(1))
             {
                 CollectObservationBodyPart(bodyPart);
             }

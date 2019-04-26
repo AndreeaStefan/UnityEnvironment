@@ -12,11 +12,12 @@ namespace ArmMove
     {
         private static dynamic _configuration;
         
-        public Brain GetBrain()
+        public Brain GetBrain(string name)
         {
             if (_configuration == null) _configuration = AvatarConfiguration.GetConfiguration();
             
             var brain = ScriptableObject.CreateInstance<LearningBrain>();
+            brain.name = name;
             var brainParameters = new BrainParameters
             {
                 numStackedVectorObservations = _configuration["numStackedVectorsObservation"],

@@ -52,11 +52,9 @@ namespace ArmMove
         {
             var brainHandler = new BrainHandler();
             
-            brain = brainHandler.GetBrain();
+            brain = brainHandler.GetBrain("Brain2");
             
             InitializeEnvironment();
-            
-            brain.SetBatcher(brainBatcher);
             
             broadcastHub.broadcastingBrains = new List<Brain>{brain};
             broadcastHub.SetControlled(brain, true);
