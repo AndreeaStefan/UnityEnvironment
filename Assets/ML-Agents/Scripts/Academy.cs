@@ -187,7 +187,7 @@ namespace MLAgents
         bool modeSwitched;
 
         /// Pointer to the batcher currently in use by the Academy.
-        MLAgents.Batcher brainBatcher;
+        public MLAgents.Batcher brainBatcher;
 
         /// Used to write error messages.
         StreamWriter logWriter;
@@ -261,7 +261,7 @@ namespace MLAgents
         /// <summary>
         /// Initializes the environment, configures it and initialized the Academy.
         /// </summary>
-        private void InitializeEnvironment()
+        public void InitializeEnvironment()
         {
             originalGravity = Physics.gravity;
             originalFixedDeltaTime = Time.fixedDeltaTime;

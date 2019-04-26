@@ -64,11 +64,12 @@
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAcademy.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\ArmMoveAgent.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\CollisionDetector.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Initialisation\AvatarConfiguration.cs" />
+    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Initialisation\BrainHandler.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\ArmSpawner.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\BodyPartConstraint.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\Finder.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\Helper.cs" />
-    <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\Utils\IConfigSpecification.cs" />
     <Compile Include="Assets\ML-Agents\Games\1ArmMove\Scripts\WallContact.cs" />
     <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\AdjustTrainingTimescale.cs" />
     <Compile Include="Assets\ML-Agents\Games\SharedAssets\Scripts\Area.cs" />

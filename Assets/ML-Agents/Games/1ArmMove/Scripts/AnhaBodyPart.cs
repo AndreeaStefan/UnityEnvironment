@@ -15,7 +15,7 @@ namespace ArmMove
         public Quaternion initialRotation;
         public Vector3 scale;
 
-        public CharacterJoint joint;
+        public ConfigurableJoint joint;
         public BodyPartConstraint constraints;
 
         public AnhaBodyPart(Transform transform, BodyPartConstraint constraints)
@@ -26,7 +26,7 @@ namespace ArmMove
             initialRotation = this.transform.rotation;
 
             rb = this.transform.GetComponent<Rigidbody>();
-            joint = this.transform.GetComponent<CharacterJoint>();
+            joint = this.transform.GetComponent<ConfigurableJoint>();
 
            
 
@@ -39,12 +39,23 @@ namespace ArmMove
                     this.transform.position += new Vector3(0, 0, 0.01f * Math.Sign(this.transform.localPosition.z));
                     joint.connectedAnchor += new Vector3(0, 0.01f, 0) *  Math.Sign(this.transform.localPosition.z) * -1;
                 }
-              
 
-                joint.highTwistLimit = new SoftJointLimit{limit = constraints.HighTwistLimit };
-                joint.lowTwistLimit = new SoftJointLimit { limit = constraints.LowTwistLimit };
-                joint.swing1Limit = new SoftJointLimit { limit = constraints.SwingLimit1 };
-                joint.swing2Limit = new SoftJointLimit { limit = constraints.SwingLimit2 };
+                joint.angularXMotion = constraints.XRotationLocked
+                    ? ConfigurableJointMotion.Locked
+                    : ConfigurableJointMotion.Limited;
+                
+                joint.angularYMotion = constraints.YRotationLocked
+                    ? ConfigurableJointMotion.Locked
+                    : ConfigurableJointMotion.Limited;
+                
+                joint.angularZMotion = constraints.ZRotationLocked
+                    ? ConfigurableJointMotion.Locked
+                    : ConfigurableJointMotion.Limited;
+              
+                joint.highAngularXLimit = new SoftJointLimit{limit = constraints.HighAngularXLimit };
+                joint.lowAngularXLimit = new SoftJointLimit { limit = constraints.LowAngularXLimit };
+                joint.angularYLimit = new SoftJointLimit { limit = constraints.AngularYLimit };
+                joint.angularZLimit = new SoftJointLimit { limit = constraints.AngularZLimit };
             }
 
             var scaleX = this.transform.localScale.x * constraints.ScaleX;

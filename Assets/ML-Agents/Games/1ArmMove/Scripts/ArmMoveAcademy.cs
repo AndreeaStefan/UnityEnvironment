@@ -1,12 +1,15 @@
 ﻿
 using System.Collections.Generic;
+using System.Linq;
 using MLAgents;
+using MLAgents.CommunicatorObjects;
 using UnityEngine;
 
 namespace ArmMove
 {
     public class ArmMoveAcademy : Academy
     {
+        public Brain brain;
 
         /// <summary>
         /// The "walking speed" of the agents in the scene. 
@@ -44,8 +47,26 @@ namespace ArmMove
         /// </summary>
         public float gravityMultiplier;
 
-        public List<BodyPartConstraint> constrains ;
+        // Set the brain here
+        private void Awake()
+        {
+            var brainHandler = new BrainHandler();
+            
+            brain = brainHandler.GetBrain();
+            
+            InitializeEnvironment();
+            
+            brain.SetBatcher(brainBatcher);
+            
+            broadcastHub.broadcastingBrains = new List<Brain>{brain};
+            broadcastHub.SetControlled(brain, true);
 
+            FindObjectsOfType<ArmMoveAgent>().ToList().ForEach(agent => agent.GiveBrain(brain));
+            
+            
+        }
+
+        
         void State()
         {
             Physics.gravity *= gravityMultiplier;

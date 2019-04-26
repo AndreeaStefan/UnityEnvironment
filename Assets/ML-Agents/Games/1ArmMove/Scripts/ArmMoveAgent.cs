@@ -13,7 +13,6 @@ namespace ArmMove
     {
 
         [FormerlySerializedAs("Ground")] public GameObject Floor;
-        public GameObject RightArm;
         public GameObject LimbsContainer;
         public GameObject TargetsContainer;
         public GameObject Root;
@@ -25,8 +24,6 @@ namespace ArmMove
         private List<Transform> _hands;
         private JointDriveController _jdController;
         
-        [Range(0, 50)] public float RotationAmount = 20f;
-
         private Rigidbody _agentRb;
         private Renderer _groundRenderer;
         private Bounds _areaBounds;
@@ -36,13 +33,8 @@ namespace ArmMove
 
         void Awake()
         {
+            limbsConfig = AvatarConfiguration.GetConfiguration();
             _academy = FindObjectOfType<ArmMoveAcademy>();
-            var path = "Assets/config/specification.json";
-            var config = Helper.LoadJson(path);
-            if (config != null)
-            {
-                limbsConfig = config;
-            }
         }
 
 
@@ -68,7 +60,6 @@ namespace ArmMove
             _jdController = GetComponent<JointDriveController>();
             _jdController.SetupBodyPart(Root.transform);
             _limbsTransform.ForEach(bp => _jdController.SetupBodyPart(bp));
-
         }
 
 
@@ -128,27 +119,28 @@ namespace ArmMove
         {
             var bpDict = _jdController.bodyPartsDict;
             var iterator = vectorAction.GetEnumerator();
+            iterator.MoveNext();
             
             _limbsBodyParts.ForEach(bp =>
             {
                 float x;
                 float y;
                 float z;
-                if((int) bp.constraints.LowTwistLimit == 0 && (int) bp.constraints.HighTwistLimit == 0)
+                if(bp.constraints.XRotationLocked)
                     x = 0f;
                 else
                 {
                     x = (float) iterator.Current;
                     iterator.MoveNext();
                 }
-                if((int) bp.constraints.SwingLimit1 == 0)
+                if(bp.constraints.YRotationLocked)
                     y = 0f;
                 else
                 {
                     y = (float) iterator.Current;
                     iterator.MoveNext();
                 }
-                if((int) bp.constraints.SwingLimit2 == 0)
+                if(bp.constraints.ZRotationLocked)
                     z = 0f;
                 else
                 {
