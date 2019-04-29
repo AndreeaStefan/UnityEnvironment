@@ -123,23 +123,23 @@ namespace MLAgents
             bp.rb.maxAngularVelocity = 100;
 
             // Add & setup the ground contact script
-            bp.groundContact = t.GetComponent<GroundContact>();
-            if (!bp.groundContact)
-            {
-                bp.groundContact = t.gameObject.AddComponent<GroundContact>();
-                bp.groundContact.agent = gameObject.GetComponent<Agent>();
-            }
-            else
-            {
-                bp.groundContact.agent = gameObject.GetComponent<Agent>();
-            }
-
-            // Add & setup the target contact script
-            bp.targetContact = t.GetComponent<TargetContact>();
-            if (!bp.targetContact)
-            {
-                bp.targetContact = t.gameObject.AddComponent<TargetContact>();
-            }
+//            bp.groundContact = t.GetComponent<GroundContact>();
+//            if (!bp.groundContact)
+//            {
+//                bp.groundContact = t.gameObject.AddComponent<GroundContact>();
+//                bp.groundContact.agent = gameObject.GetComponent<Agent>();
+//            }
+//            else
+//            {
+//                bp.groundContact.agent = gameObject.GetComponent<Agent>();
+//            }
+//
+//            // Add & setup the target contact script
+//            bp.targetContact = t.GetComponent<TargetContact>();
+//            if (!bp.targetContact)
+//            {
+//                bp.targetContact = t.gameObject.AddComponent<TargetContact>();
+//            }
 
             bp.thisJDController = this;
             bodyPartsDict.Add(t, bp);

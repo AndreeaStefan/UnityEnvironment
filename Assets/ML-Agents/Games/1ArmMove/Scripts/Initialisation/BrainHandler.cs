@@ -18,13 +18,23 @@ namespace ArmMove
             
             var brain = ScriptableObject.CreateInstance<LearningBrain>();
             brain.name = name;
+
+            var actionSpaceSize = GetActionVectorSize();
+            var descriptionList = new string[actionSpaceSize[0]];
+            
+            for (var i = 0; i < actionSpaceSize[0]; i++)
+            {
+                descriptionList[i] = "Action" + i;
+            }
+            
             var brainParameters = new BrainParameters
             {
                 numStackedVectorObservations = _configuration["numStackedVectorsObservation"],
                 vectorObservationSize = GetObservationSize(),
                 vectorActionSpaceType = SpaceType.continuous,
-                vectorActionSize = GetActionVectorSize(),
-                cameraResolutions = new Resolution[]{}
+                vectorActionSize = actionSpaceSize,
+                cameraResolutions = new Resolution[]{},
+                vectorActionDescriptions = descriptionList
             };
             brain.brainParameters = brainParameters;
             brain.SetToControlledExternally();
@@ -48,6 +58,9 @@ namespace ArmMove
                 // from one bone we have 4 observations
                 return tmp * 4;
             }).Sum();
+            
+            Debug.Log("Vector observation size: " + size);
+            
             return size;
         }
         
@@ -87,6 +100,8 @@ namespace ArmMove
                 
                 return tmp;
             }).Sum();
+
+            Debug.Log("Action space size: "  + size);
             
             return new []{size};
         }

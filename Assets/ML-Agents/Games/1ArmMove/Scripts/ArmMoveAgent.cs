@@ -29,6 +29,8 @@ namespace ArmMove
         private Bounds _areaBounds;
         private Material _groundMaterial;
 
+        private int decisionCounter;
+        
         [FormerlySerializedAs("constrains")] public dynamic limbsConfig;
 
         void Awake()
@@ -37,10 +39,10 @@ namespace ArmMove
             _academy = FindObjectOfType<ArmMoveAcademy>();
         }
 
-
         public override void InitializeAgent()
         {
             base.InitializeAgent();
+            decisionCounter = 0;
             _limbsTransform = new List<Transform>();
             _limbsBodyParts = new List<AnhaBodyPart>();
             
@@ -61,7 +63,6 @@ namespace ArmMove
             _jdController.SetupBodyPart(Root.transform);
             _limbsTransform.ForEach(bp => _jdController.SetupBodyPart(bp));
         }
-
 
         private void SetLimbs()
         {
@@ -89,7 +90,23 @@ namespace ArmMove
             
         }
         
-        public void CollectObservationBodyPart(BodyPart bp)
+        
+
+        public override void CollectObservations()
+        {
+            // skip body
+             foreach (var bodyPart in _jdController.bodyPartsDict.Values.Skip(1))
+            {
+                CollectObservationBodyPart(bodyPart);
+            }
+            // Adding position of hands relative to the floor
+            _hands.ForEach(h => AddVectorObs(Helper.getRelativePosition(Floor.transform, h.position)));
+           // Local position of targets is already relative to the floor
+           _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
+         
+        }
+        
+        private void CollectObservationBodyPart(BodyPart bp)
         {
             if(bp.rb.transform != Root.transform)
             {
@@ -100,19 +117,6 @@ namespace ArmMove
             }
         }
 
-        public override void CollectObservations()
-        {
-            // skip body
-            foreach (var bodyPart in _jdController.bodyPartsDict.Values.Skip(1))
-            {
-                CollectObservationBodyPart(bodyPart);
-            }
-            // Adding position of hands relative to the floor
-            _hands.ForEach(h => AddVectorObs(Helper.getRelativePosition(Floor.transform, h.position)));
-           // Local position of targets is already relative to the floor
-           _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
-         
-        }
         
         
         // the action space depends on the joints setting. If an axis is locked, no action is needed
@@ -159,13 +163,43 @@ namespace ArmMove
             var direction = Mathf.Clamp((float)iterator.Current, -1, 1);
             iterator.MoveNext();
             var rotation = Mathf.Clamp((float)iterator.Current, -1, 1);
-            transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 20 * rotation);
-            _agentRb.MovePosition(Root.transform.position + Root.transform.forward * direction * _academy.agentRunSpeed * Time.fixedDeltaTime);
+//            transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 200 * rotation);
+//            _agentRb.MovePosition(Root.transform.position + Root.transform.forward * direction * _academy.agentRunSpeed * Time.fixedDeltaTime);
+        }
+        
+        void FixedUpdate()
+        {
+            if (decisionCounter == 0)
+            {
+                decisionCounter = 3;
+                RequestDecision();
+            }
+            else
+            {
+                decisionCounter--;
+            }
+
+            // Energy Conservation
+            // The dog is penalized by how strongly it rotates towards the target.
+            // Without this penalty the dog tries to rotate as fast as it can at all times.
+//            var bodyRotationPenalty = -0.001f * rotateBodyActionValue;
+//            AddReward(bodyRotationPenalty);
+
+            // Reward for moving towards the target
+//            RewardFunctionMovingTowards();
+            // Penalty for time
+//            RewardFunctionTimePenalty();
+            AssessState();
+        }
+
+        private void AssessState()
+        {
+            
         }
 
         public override void AgentReset()
         {
-            transform.position = GetRandomSpawnPosition();
+            Root.transform.localPosition = GetRandomSpawnPosition();
             _agentRb.velocity = Vector3.zero;
             _agentRb.angularVelocity = Vector3.zero;
             foreach (var target in _targets)
@@ -186,6 +220,8 @@ namespace ArmMove
             _groundRenderer.material = _groundMaterial;
         }
 
+        
+        
         private Vector3 GetRandomSpawnPosition()
         {
             var foundNewSpawnLocation = false;

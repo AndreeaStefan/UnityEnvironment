@@ -9,7 +9,7 @@ namespace ArmMove
 {
     public class ArmMoveAcademy : Academy
     {
-        public Brain brain;
+        [HideInInspector] public Brain brain;
 
         /// <summary>
         /// The "walking speed" of the agents in the scene. 
@@ -41,35 +41,19 @@ namespace ArmMove
         /// </summary>
         public Material failMaterial;
 
-        /// <summary>
-        /// The gravity multiplier.
-        /// Use ~3 to make things less floaty
-        /// </summary>
-        public float gravityMultiplier;
-
         // Set the brain here
         private void Awake()
         {
             var brainHandler = new BrainHandler();
             
             brain = brainHandler.GetBrain("Brain2");
-            
-            InitializeEnvironment();
-            
+                        
             broadcastHub.broadcastingBrains = new List<Brain>{brain};
             broadcastHub.SetControlled(brain, true);
 
             FindObjectsOfType<ArmMoveAgent>().ToList().ForEach(agent => agent.GiveBrain(brain));
             
-            
+            InitializeEnvironment();
         }
-
-        
-        void State()
-        {
-            Physics.gravity *= gravityMultiplier;
-
-        }
-
     }
 }
