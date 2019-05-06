@@ -29,6 +29,9 @@ namespace ArmMove
         private Bounds _areaBounds;
         private Material _groundMaterial;
 
+        private float _direction;
+        private float _rotation;
+
         private int decisionCounter;
         
         [FormerlySerializedAs("constrains")] public dynamic limbsConfig;
@@ -160,11 +163,9 @@ namespace ArmMove
             });
             
             // moving the agent part
-            var direction = Mathf.Clamp((float)iterator.Current, -1, 1);
+            _direction = Mathf.Clamp((float)iterator.Current, -1, 1);
             iterator.MoveNext();
-            var rotation = Mathf.Clamp((float)iterator.Current, -1, 1);
-//            transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 200 * rotation);
-//            _agentRb.MovePosition(Root.transform.position + Root.transform.forward * direction * _academy.agentRunSpeed * Time.fixedDeltaTime);
+            _rotation = Mathf.Clamp((float)iterator.Current, -1, 1);
         }
         
         void FixedUpdate()
@@ -182,14 +183,24 @@ namespace ArmMove
             // Energy Conservation
             // The dog is penalized by how strongly it rotates towards the target.
             // Without this penalty the dog tries to rotate as fast as it can at all times.
-//            var bodyRotationPenalty = -0.001f * rotateBodyActionValue;
-//            AddReward(bodyRotationPenalty);
+            //            var bodyRotationPenalty = -0.001f * rotateBodyActionValue;
+            //            AddReward(bodyRotationPenalty);
 
             // Reward for moving towards the target
-//            RewardFunctionMovingTowards();
+            //            RewardFunctionMovingTowards();
             // Penalty for time
-//            RewardFunctionTimePenalty();
+            RewardFunctionTimePenalty();
             AssessState();
+        }
+
+
+        /// <summary>
+        /// Time penalty
+        /// gets a pentalty each step so that it tries to finish as quickly as possible.
+        /// </summary>
+        void RewardFunctionTimePenalty()
+        {
+            AddReward(-0.001f);  //-0.001f chosen by experimentation.
         }
 
         private void AssessState()
@@ -199,7 +210,7 @@ namespace ArmMove
 
         public override void AgentReset()
         {
-            Root.transform.localPosition = GetRandomSpawnPosition();
+            Root.transform.position = GetRandomSpawnPosition();
             _agentRb.velocity = Vector3.zero;
             _agentRb.angularVelocity = Vector3.zero;
             foreach (var target in _targets)
@@ -213,7 +224,7 @@ namespace ArmMove
             }
         }
 
-        IEnumerator GoalScoredSwapGroundMaterial(Material mat, float time)
+        IEnumerator SwapGroundMaterial(Material mat, float time)
         {
             _groundRenderer.material = mat;
             yield return new WaitForSeconds(time); // Wait for 2 sec
@@ -249,14 +260,14 @@ namespace ArmMove
         private Vector3 GetRandomSpawnTargetPosition()
         {
             var position = GetRandomSpawnPosition();
-            position.y = Random.Range(0.5f, 3.5f);
+            position.y = Random.Range(0.5f, 2.5f);
             return position;
         }
 
         public void IsTarget()
         {
             AddReward(5);
-            StartCoroutine(GoalScoredSwapGroundMaterial(_academy.successMaterial, 0.5f));
+            StartCoroutine(SwapGroundMaterial(_academy.successMaterial, 0.5f));
         }
         
         public void ResetTarget(GameObject target)
@@ -267,7 +278,7 @@ namespace ArmMove
         public void IsWall()
         {
             AddReward(-5f);
-            StartCoroutine(GoalScoredSwapGroundMaterial(_academy.failMaterial, 0.5f));
+            StartCoroutine(SwapGroundMaterial(_academy.failMaterial, 0.5f));
             Done();
         }
 

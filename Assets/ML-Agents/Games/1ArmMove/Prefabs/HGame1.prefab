@@ -384,14 +384,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721194105834103881}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.2, z: 1.283}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.71, z: 0.666}
   m_LocalScale: {x: 0.15691616, y: 0.22461963, z: 0.14637172}
   m_Children:
   - {fileID: 33918346296085548}
   m_Father: {fileID: 152606473355575510}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6458420744485961606
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -478,7 +478,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.0000002, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.99833536, z: -0.0000018324647}
+  m_ConnectedAnchor: {x: 0, y: -1.033381, z: 0.07515386}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: 1}
   m_XMotion: 0
@@ -590,13 +590,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023923306718833794}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.2, z: -0.783}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.2, z: -0.695}
   m_LocalScale: {x: 0.1569162, y: 0.2568077, z: 0.14637166}
   m_Children: []
   m_Father: {fileID: 292450040807035963}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1971873247499054560
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.0000002, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.5261918, y: 0.19988112, z: 0.000000067282976}
+  m_ConnectedAnchor: {x: 0.69499975, y: 0.28403056, z: 0.000000067282976}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -691,7 +691,7 @@ ConfigurableJoint:
   m_ZMotion: 0
   m_AngularXMotion: 1
   m_AngularYMotion: 1
-  m_AngularZMotion: 0
+  m_AngularZMotion: 1
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -703,22 +703,22 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -90
+    limit: 8.458349
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 155
+    limit: 177
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 48
+    limit: 104.95343
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
-    limit: 0
+    limit: 59.715088
     bounciness: 0
     contactDistance: 0
   m_TargetPosition: {x: 0, y: 0, z: 0}
@@ -1116,13 +1116,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4833865907778666030}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.2, z: 0.802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.2, z: 0.655}
   m_LocalScale: {x: 0.15691616, y: 0.25680766, z: 0.14637166}
   m_Children: []
   m_Father: {fileID: 152606473355575510}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2103680020368643229
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1209,7 +1209,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.0000002, z: 0}
   m_Axis: {x: 0, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.5451928, y: 0.19988112, z: -0.000000067282976}
+  m_ConnectedAnchor: {x: -0.65499884, y: 0.28403056, z: -0.000000067282976}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: -1, z: 0}
   m_XMotion: 0
@@ -1229,18 +1229,18 @@ ConfigurableJoint:
     spring: 0
     damper: 0
   m_LowAngularXLimit:
-    limit: -90
+    limit: -8.839078
     bounciness: 0
     contactDistance: 0
   m_HighAngularXLimit:
-    limit: 155
+    limit: 177
     bounciness: 0
     contactDistance: 0
   m_AngularYZLimitSpring:
     spring: 0
     damper: 0
   m_AngularYLimit:
-    limit: 48
+    limit: 103.62725
     bounciness: 0
     contactDistance: 0
   m_AngularZLimit:
@@ -1412,14 +1412,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5077028292462307914}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2.2, z: -1.261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.71, z: -0.714}
   m_LocalScale: {x: 0.1569162, y: 0.2246196, z: 0.14637172}
   m_Children:
   - {fileID: 5792430772223105013}
   m_Father: {fileID: 292450040807035963}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3144730013931061736
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1506,7 +1506,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 1.0000002, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: -0.9866557, z: 0.0000018324647}
+  m_ConnectedAnchor: {x: 0, y: -1.0333806, z: -0.12981139}
   serializedVersion: 2
   m_SecondaryAxis: {x: 0, y: 0, z: 1}
   m_XMotion: 0

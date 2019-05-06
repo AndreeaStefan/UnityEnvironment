@@ -19,11 +19,11 @@
         "ScaleZ": 1,
         "XRotationLocked": false,
         "YRotationLocked": false,
-        "ZRotationLocked": true,
-        "LowAngularXLimit": -90,
-        "HighAngularXLimit": 146,
-        "AngularYLimit": 48,
-        "AngularZLimit": 0,
+        "ZRotationLocked": false,
+        "LowAngularXLimit": -180,
+        "HighAngularXLimit": 180,
+        "AngularYLimit": 360,
+        "AngularZLimit": 360,
         "parent": null
       }
     },
@@ -46,11 +46,11 @@
         "ScaleZ": 1,
         "XRotationLocked": false,
         "YRotationLocked": false,
-        "ZRotationLocked": true,
-        "LowAngularXLimit": -90,
-        "HighAngularXLimit": 146,
-        "AngularYLimit": 48,
-        "AngularZLimit": 0,
+        "ZRotationLocked": false,
+        "LowAngularXLimit": -180,
+        "HighAngularXLimit": 180,
+        "AngularYLimit": 360,
+        "AngularZLimit": 360,
         "parent": null
       }
     }
