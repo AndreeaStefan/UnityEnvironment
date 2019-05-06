@@ -77,7 +77,9 @@ namespace MLAgents
             currentYNormalizedRot = Mathf.InverseLerp(-joint.angularYLimit.limit, joint.angularYLimit.limit, yRot);
             currentZNormalizedRot = Mathf.InverseLerp(-joint.angularZLimit.limit, joint.angularZLimit.limit, zRot);
 
+            var rotation = new Vector3(xRot, yRot, zRot) * currentStrength;
             joint.targetRotation = Quaternion.Euler(xRot, yRot, zRot);
+          //  rb.AddTorque(rotation, ForceMode.VelocityChange);
             currentEularJointRotation = new Vector3(xRot, yRot, zRot);
         }
 

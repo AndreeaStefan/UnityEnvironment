@@ -148,6 +148,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a8a46363a808d494489c609c5469804b, type: 2}
     - {fileID: 0}
     - {fileID: 11400000, guid: fdf5d8e80db0646488a6ab76806bc338, type: 2}
+    - {fileID: 11400000, guid: c03fe34427fc64e4ea02420a8fcd2913, type: 2}
   maxSteps: 0
   trainingConfiguration:
     width: 80
@@ -198,7 +199,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -398,7 +399,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -598,7 +599,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -798,7 +799,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -998,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -1369,7 +1370,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -1569,7 +1570,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -1769,7 +1770,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -1989,7 +1990,7 @@ PrefabInstance:
     - target: {fileID: 4472697066560178288, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833865907962574883, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
@@ -2321,6 +2322,31 @@ PrefabInstance:
       propertyPath: m_ConnectedAnchor.z
       value: 0.000000067282976
       objectReference: {fileID: 0}
+    - target: {fileID: 8844768222150327384, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_AngularXMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844768222150327384, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_LowAngularXLimit.limit
+      value: -173.0408
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844768222150327384, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_HighAngularXLimit.limit
+      value: 177
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844768222150327384, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_AngularZLimit.limit
+      value: 140.04964
+      objectReference: {fileID: 0}
+    - target: {fileID: 8844768222150327384, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_AngularYLimit.limit
+      value: 177
+      objectReference: {fileID: 0}
     - target: {fileID: 3489449480036472204, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
@@ -2369,6 +2395,16 @@ PrefabInstance:
     - target: {fileID: 6414611064960426689, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951983533656823675, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7951983533656823675, guid: c76b616e1def81d4582f3625bf589fef,
+        type: 3}
+      propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

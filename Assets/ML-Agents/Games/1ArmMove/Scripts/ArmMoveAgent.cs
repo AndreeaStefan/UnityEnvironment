@@ -155,9 +155,10 @@ namespace ArmMove
                     z = (float) iterator.Current;
                     iterator.MoveNext();
                 }
-                
+
+                bpDict[bp.transform].SetJointStrength((float)iterator.Current);
                 bpDict[bp.transform].SetJointTargetRotation(x, y, z);
-                bpDict[bp.transform].SetJointStrength((float) iterator.Current);
+                
                 iterator.MoveNext();
 
             });
@@ -179,6 +180,12 @@ namespace ArmMove
             {
                 decisionCounter--;
             }
+
+          //  Root.transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 200 * _rotation);
+          //  _agentRb.MovePosition(Root.transform.position + Root.transform.forward * _direction * _academy.agentRunSpeed * Time.fixedDeltaTime);
+
+            /// add moving backward penalty
+
 
             // Energy Conservation
             // The dog is penalized by how strongly it rotates towards the target.
