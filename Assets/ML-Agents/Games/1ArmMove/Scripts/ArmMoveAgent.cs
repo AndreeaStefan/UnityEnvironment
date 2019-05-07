@@ -102,11 +102,15 @@ namespace ArmMove
             {
                 CollectObservationBodyPart(bodyPart);
             }
-            // Adding position of hands relative to the floor
+
+            // Adding position of hands 
             _hands.ForEach(h => AddVectorObs(Helper.getRelativePosition(Floor.transform, h.position)));
-           // Local position of targets is already relative to the floor
-           _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
-         
+            // Adding position of targets 
+            _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
+
+            // Adding position of hands relative to the targets
+          //   _hands.ForEach(h =>  _targets.ForEach(t => AddVectorObs(Helper.getRelativePosition(t.transform, h.position))));
+
         }
         
         private void CollectObservationBodyPart(BodyPart bp)
@@ -164,9 +168,9 @@ namespace ArmMove
             });
             
             // moving the agent part
-            _direction = Mathf.Clamp((float)iterator.Current, -1, 1);
+            _direction = (float) iterator.Current;
             iterator.MoveNext();
-            _rotation = Mathf.Clamp((float)iterator.Current, -1, 1);
+            _rotation = (float)iterator.Current;
         }
         
         void FixedUpdate()
@@ -181,20 +185,19 @@ namespace ArmMove
                 decisionCounter--;
             }
 
-          //  Root.transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 200 * _rotation);
-          //  _agentRb.MovePosition(Root.transform.position + Root.transform.forward * _direction * _academy.agentRunSpeed * Time.fixedDeltaTime);
-
-            /// add moving backward penalty
+            var dir = Mathf.Clamp(_direction, -1, 1);
+            var rot = Mathf.Clamp(_rotation, -1, 1);
 
 
-            // Energy Conservation
-            // The dog is penalized by how strongly it rotates towards the target.
-            // Without this penalty the dog tries to rotate as fast as it can at all times.
-            //            var bodyRotationPenalty = -0.001f * rotateBodyActionValue;
-            //            AddReward(bodyRotationPenalty);
+            Root.transform.Rotate(Root.transform.up, Time.fixedDeltaTime * 200 * rot);
+            _agentRb.MovePosition(Root.transform.position + Root.transform.forward * dir * _academy.agentRunSpeed * Time.fixedDeltaTime);
 
-            // Reward for moving towards the target
-            //            RewardFunctionMovingTowards();
+            // Penalty for movement of the body
+            var bodyRotationPenalty = -0.001f * Math.Abs(_rotation);
+            var bodMovementPenalty = -0.001f * Math.Abs(_direction);
+            AddReward(bodyRotationPenalty);
+            AddReward(bodMovementPenalty);
+
             // Penalty for time
             RewardFunctionTimePenalty();
             AssessState();
@@ -274,6 +277,16 @@ namespace ArmMove
         public void IsTarget()
         {
             AddReward(5);
+          
+           
+           // _hands.ForEach(h => Debug.Log("Hand-Global" +h.position));
+          //  _targets.ForEach(t => Debug.Log("Target-Global" + t.transform.position));
+
+          //  _hands.ForEach(h => Debug.Log("Hand2" + Helper.getRelativePosition(Floor.transform, h.position)));
+          //  _targets.ForEach(t => Debug.Log("Target2" + t.transform.localPosition));
+          //     _targets.ForEach(t => Debug.Log("Target - local " +  t.transform.localPosition));
+           //    _targets.ForEach(t => Debug.Log("Target - relative" + Helper.getRelativePosition(Floor.transform, t.transform.position)));
+
             StartCoroutine(SwapGroundMaterial(_academy.successMaterial, 0.5f));
         }
         
