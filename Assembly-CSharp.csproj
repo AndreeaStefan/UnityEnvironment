@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{99BB1A82-3BE2-A536-A99A-EF18D6169945}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -134,6 +135,7 @@
     <Compile Include="Assets\ML-Agents\Scripts\SocketCommunicator.cs" />
     <Compile Include="Assets\ML-Agents\Scripts\UnityAgentsException.cs" />
     <Compile Include="Assets\ML-Agents\Scripts\Utilities.cs" />
+    <None Include="app.config" />
     <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Experimental.compute" />
     <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Conv.compute" />
     <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Random.cginc" />
