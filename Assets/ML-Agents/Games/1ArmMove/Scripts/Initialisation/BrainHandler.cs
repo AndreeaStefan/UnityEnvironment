@@ -45,6 +45,7 @@ namespace ArmMove
         private int GetObservationSize()
         {
             var size = _configuration["numTargets"] * 3;
+            size += 3; // direction to target
             size += ((JArray)_configuration["limbs"]).Count * 3;
             size += ((JArray)_configuration["limbs"]).Select(l =>
             {

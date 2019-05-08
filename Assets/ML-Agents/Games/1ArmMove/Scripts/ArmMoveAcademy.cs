@@ -44,8 +44,8 @@ namespace ArmMove
         // Set the brain here
         private void Awake()
         {
-            if (this.broadcastHub.IsControlled(this.broadcastHub.broadcastingBrains.First()))
-            {
+           /* if (this.broadcastHub.IsControlled(this.broadcastHub.broadcastingBrains.First()))
+           // {
                 var brainHandler = new BrainHandler();
 
                 brain = brainHandler.GetBrain("Brain2");
@@ -54,7 +54,7 @@ namespace ArmMove
                 broadcastHub.SetControlled(brain, true);
 
                 FindObjectsOfType<ArmMoveAgent>().ToList().ForEach(agent => agent.GiveBrain(brain));
-            }
+            }*/
             
             InitializeEnvironment();
         }

@@ -148,6 +148,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: a8a46363a808d494489c609c5469804b, type: 2}
     - {fileID: 0}
     - {fileID: 11400000, guid: fdf5d8e80db0646488a6ab76806bc338, type: 2}
+    - {fileID: 11400000, guid: c03fe34427fc64e4ea02420a8fcd2913, type: 2}
   maxSteps: 0
   trainingConfiguration:
     width: 80
@@ -2404,36 +2405,6 @@ PrefabInstance:
     - target: {fileID: 7951983533656823675, guid: c76b616e1def81d4582f3625bf589fef,
         type: 3}
       propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 43161476760571931, guid: c76b616e1def81d4582f3625bf589fef,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 43161476760571931, guid: c76b616e1def81d4582f3625bf589fef,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 43161476760571931, guid: c76b616e1def81d4582f3625bf589fef,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7242780327557309619, guid: c76b616e1def81d4582f3625bf589fef,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7242780327557309619, guid: c76b616e1def81d4582f3625bf589fef,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7242780327557309619, guid: c76b616e1def81d4582f3625bf589fef,
-        type: 3}
-      propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ML-Agents/Games/1ArmMove/Scenes/TapObjects.unity
-    guid: 5f77a29708f7bad41a30c0b1fb09c070
+    path: Assets/ML-Agents/Games/1ArmMove/Scenes/TapObjectsDoubleJointedArms.unity
+    guid: 2db3dc1747b36f54a8dc71aee0b3c7e9
   m_configObjects: {}

@@ -33,7 +33,9 @@ namespace ArmMove
         private float _rotation;
 
         private int decisionCounter;
-        
+
+        private Vector3 _directionToClosestTarget;
+
         [FormerlySerializedAs("constrains")] public dynamic limbsConfig;
 
         void Awake()
@@ -65,6 +67,30 @@ namespace ArmMove
             _jdController = GetComponent<JointDriveController>();
             _jdController.SetupBodyPart(Root.transform);
             _limbsTransform.ForEach(bp => _jdController.SetupBodyPart(bp));
+
+            SetDirectionToClosestTarget();
+        }
+
+
+        private void SetDirectionToClosestTarget()
+        {
+          
+            var minDist = Vector3.Distance(_hands[0].position, _targets[0].position);
+            var dir = _targets[0].position - _hands[0].position;
+
+            foreach (var h in _hands)
+            {
+                foreach (var t in _targets)
+                {
+                    var dist = Vector3.Distance(t.position, h.position);
+                    if (dist < minDist)
+                    {
+                        dir = t.position - h.position;
+                    }
+                }
+            }
+
+            _directionToClosestTarget = dir;
         }
 
         private void SetLimbs()
@@ -108,8 +134,9 @@ namespace ArmMove
             // Adding position of targets 
             _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
 
+            AddVectorObs(_directionToClosestTarget.normalized);
             // Adding position of hands relative to the targets
-          //   _hands.ForEach(h =>  _targets.ForEach(t => AddVectorObs(Helper.getRelativePosition(t.transform, h.position))));
+            //   _hands.ForEach(h =>  _targets.ForEach(t => AddVectorObs(Helper.getRelativePosition(t.transform, h.position))));
 
         }
         
@@ -175,6 +202,8 @@ namespace ArmMove
         
         void FixedUpdate()
         {
+            SetDirectionToClosestTarget();
+
             if (decisionCounter == 0)
             {
                 decisionCounter = 3;
@@ -201,6 +230,16 @@ namespace ArmMove
             // Penalty for time
             RewardFunctionTimePenalty();
             AssessState();
+        }
+
+        /// <summary>
+        /// Reward moving towards the closest target
+        /// </summary>
+        void RewardFunctionMovingTowards()
+        {
+
+            float movingTowardsDot = Vector3.Dot( _agentRb.velocity, _directionToClosestTarget.normalized);
+            AddReward(0.01f * movingTowardsDot);
         }
 
 
