@@ -65,10 +65,6 @@
       <HintPath>Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Barracuda.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NLog.Config, Version=4.6.3">
-      <HintPath>Assets\ML-Agents\Plugins\NLog.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Grpc.Core.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad">
       <HintPath>packages\Grpc.Core.Api.1.21.0-pre1\lib\net45\Grpc.Core.Api.dll</HintPath>
       <Private>True</Private>
