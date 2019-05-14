@@ -44,16 +44,21 @@ namespace ArmMove
         // Set the brain here
         private void Awake()
         {
+            Debug.Log("About to create brain");
+            Debug.Log("Streaming assets path: " + Application.streamingAssetsPath);
+            
+            
            if (this.broadcastHub.IsControlled(this.broadcastHub.broadcastingBrains.First()))
            {
                 var brainHandler = new BrainHandler();
 
                 brain = brainHandler.GetBrain("Brain2");
-
+                Debug.Log($"Brain created: {brain}\n\t{brain.brainParameters}");
                 broadcastHub.broadcastingBrains = new List<Brain> { brain };
                 broadcastHub.SetControlled(brain, true);
 
                 FindObjectsOfType<ArmMoveAgent>().ToList().ForEach(agent => agent.GiveBrain(brain));
+                Debug.Log("Brain implanted in all the agents.");
             }
             
             InitializeEnvironment();

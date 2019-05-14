@@ -42,13 +42,14 @@ namespace ArmMove
         {
             limbsConfig = AvatarConfiguration.GetConfiguration();
             _academy = FindObjectOfType<ArmMoveAcademy>();
+            Debug.Log($"agent {name}, got academy");
+
         }
 
         public override void InitializeAgent()
         {
-
-//            var nlog = NLog.LogManager.GetCurrentClassLogger();
-
+            Debug.Log($"Initialising agent: {name}");
+            Debug.Log($"Current brain: {brain}");
             base.InitializeAgent();
             decisionCounter = 0;
             _limbsTransform = new List<Transform>();
