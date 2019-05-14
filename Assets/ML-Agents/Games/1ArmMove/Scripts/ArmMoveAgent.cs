@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MLAgents;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using BodyPart = MLAgents.BodyPart;
 using Random = UnityEngine.Random;
 
 namespace ArmMove
 {
     public class ArmMoveAgent : Agent
     {
-
         [FormerlySerializedAs("Ground")] public GameObject Floor;
         public GameObject LimbsContainer;
         public GameObject TargetsContainer;
@@ -35,6 +36,7 @@ namespace ArmMove
         private int decisionCounter;
 
         private Vector3 _directionToClosestTarget;
+        private readonly Vector3 locationNormalisationOverride = new Vector3(0f, Constants.ARENA_HEIGHT, 0f);
 
         [FormerlySerializedAs("constrains")] public dynamic limbsConfig;
 
@@ -48,7 +50,7 @@ namespace ArmMove
 
         public override void InitializeAgent()
         {
-            Debug.Log($"Initialising agent: {name}");
+            Debug.Log($"Initialising agent in: {GetComponentInParent<Transform>().name}");
             Debug.Log($"Current brain: {brain}");
             base.InitializeAgent();
             decisionCounter = 0;
@@ -134,13 +136,11 @@ namespace ArmMove
             }
 
             // Adding position of hands 
-            _hands.ForEach(h => AddVectorObs(Helper.getRelativePosition(Floor.transform, h.position)));
+            _hands.ForEach(h => AddVectorObs(Helper.getNormalisedRelativePosition(Floor.transform, h.position, locationNormalisationOverride)));
             // Adding position of targets 
-            _targets.ForEach(t => AddVectorObs(t.transform.localPosition));
+            _targets.ForEach(t => AddVectorObs(Helper.getNormalised(Floor.transform.localScale,t.transform.localPosition, locationNormalisationOverride )));
 
             AddVectorObs(_directionToClosestTarget.normalized);
-            // Adding position of hands relative to the targets
-            //   _hands.ForEach(h =>  _targets.ForEach(t => AddVectorObs(Helper.getRelativePosition(t.transform, h.position))));
 
         }
         
@@ -206,8 +206,6 @@ namespace ArmMove
         
         void FixedUpdate()
         {
-           
-
             if (decisionCounter == 0)
             {
                 decisionCounter = 3;
@@ -228,24 +226,21 @@ namespace ArmMove
 
             // Penalty for movement of the body
             var bodyRotationPenalty = -0.001f * Math.Abs(_rotation);
-            var bodMovementPenalty = -0.001f * Math.Abs(_direction);
-           // AddReward(bodyRotationPenalty);
+           AddReward(bodyRotationPenalty);
            // AddReward(bodMovementPenalty);
 
-        //    RewardFunctionMovingTowards();
+            RewardFunctionMovingTowards();
             // Penalty for time
             RewardFunctionTimePenalty();
-            AssessState();
         }
 
         /// <summary>
         /// Reward moving towards the closest target
         /// </summary>
-        void RewardFunctionMovingTowards()
+        private void RewardFunctionMovingTowards()
         {
-
-            float movingTowardsDot = Vector3.Dot( _agentRb.velocity, _directionToClosestTarget.normalized);
-            AddReward(0.01f * movingTowardsDot);
+            var movingTowardsDot = Vector3.Dot( _agentRb.velocity, _directionToClosestTarget.normalized);
+            AddReward(0.001f * movingTowardsDot);
         }
 
 
@@ -258,10 +253,6 @@ namespace ArmMove
             AddReward(-0.001f);  //-0.001f chosen by experimentation.
         }
 
-        private void AssessState()
-        {
-            
-        }
 
         public override void AgentReset()
         {
@@ -315,13 +306,13 @@ namespace ArmMove
         private Vector3 GetRandomSpawnTargetPosition()
         {
             var position = GetRandomSpawnPosition();
-            position.y = Random.Range(0.5f, 2.5f);
+            position.y = Random.Range(0.5f , Constants.ARENA_HEIGHT);
             return position;
         }
 
         public void IsTarget()
         {
-            AddReward(5);
+            AddReward(1);
           
            
            // _hands.ForEach(h => Debug.Log("Hand-Global" +h.position));
@@ -342,7 +333,7 @@ namespace ArmMove
 
         public void IsWall()
         {
-            AddReward(-5f);
+            AddReward(-1f);
             StartCoroutine(SwapGroundMaterial(_academy.failMaterial, 0.5f));
             Done();
         }

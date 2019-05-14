@@ -19,5 +19,22 @@ namespace ArmMove
 
             return relativePosition;
         }
+
+        public static Vector3 getNormalisedRelativePosition(Transform origin, Vector3 objectPosition, Vector3 overrideMax)
+        {
+            var current = getRelativePosition(origin, objectPosition);
+            var originScale = origin.localScale;
+            return getNormalised(originScale, current, overrideMax);
+        }
+
+        public static Vector3 getNormalised(Vector3 originScale, Vector3 current, Vector3 overrideMax)
+        {
+            var max = new Vector3(  (int)overrideMax.x == 0? originScale.x : overrideMax.x,
+                (int)overrideMax.y == 0? originScale.y : overrideMax.y,
+                (int)overrideMax.z == 0? originScale.z : overrideMax.z);            
+            
+            return new Vector3(current.x/max.x, current.y / max.y, current.z / max.z);
+        }
+        
     }
 }

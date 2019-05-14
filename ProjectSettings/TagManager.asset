@@ -26,10 +26,6 @@ TagManager:
   - pyramid
   - switchOn
   - stone
-  - target
-  - obstacle
-  - arm
-  - hand
   layers:
   - Default
   - TransparentFX
