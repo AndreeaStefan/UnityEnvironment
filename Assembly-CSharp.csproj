@@ -65,6 +65,10 @@
       <HintPath>Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Barracuda.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog.Config, Version=4.6.3">
+      <HintPath>Assets\ML-Agents\Plugins\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Grpc.Core.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad">
       <HintPath>packages\Grpc.Core.Api.1.21.0-pre1\lib\net45\Grpc.Core.Api.dll</HintPath>
       <Private>True</Private>
@@ -172,7 +176,6 @@
     <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\FastNV.compute" />
     <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Dense.compute" />
     <None Include="Assets\ML-Agents\Plugins\Barracuda.Core\Barracuda\Resources\Generic.compute" />
-    <None Include="Assets\ML-Agents\Plugins\NLog.xml" />
     <None Include="packages.config" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
@@ -392,9 +395,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/NLog.dll</HintPath>
     </Reference>
     <Reference Include="System.IO.Abstractions.TestingHelpers">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
