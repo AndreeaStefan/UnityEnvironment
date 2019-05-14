@@ -202,7 +202,7 @@ namespace ArmMove
         
         void FixedUpdate()
         {
-            SetDirectionToClosestTarget();
+           
 
             if (decisionCounter == 0)
             {
@@ -214,6 +214,7 @@ namespace ArmMove
                 decisionCounter--;
             }
 
+            SetDirectionToClosestTarget();
             var dir = Mathf.Clamp(_direction, -1, 1);
             var rot = Mathf.Clamp(_rotation, -1, 1);
 
@@ -224,9 +225,10 @@ namespace ArmMove
             // Penalty for movement of the body
             var bodyRotationPenalty = -0.001f * Math.Abs(_rotation);
             var bodMovementPenalty = -0.001f * Math.Abs(_direction);
-            AddReward(bodyRotationPenalty);
-            AddReward(bodMovementPenalty);
+           // AddReward(bodyRotationPenalty);
+           // AddReward(bodMovementPenalty);
 
+        //    RewardFunctionMovingTowards();
             // Penalty for time
             RewardFunctionTimePenalty();
             AssessState();

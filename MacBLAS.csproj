@@ -296,6 +296,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog">
+      <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Abstractions">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/System.IO.Abstractions.dll</HintPath>
     </Reference>
@@ -331,9 +334,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/NLog.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
