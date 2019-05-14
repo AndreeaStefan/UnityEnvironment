@@ -8,7 +8,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{B88D2337-1320-2A06-B511-11311011A2DF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -52,6 +53,16 @@
     <UnityVersion>2018.3.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Protobuf, Version=3.8.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604">
+      <HintPath>packages\Google.Protobuf.3.8.0-rc.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59">
+      <HintPath>packages\System.IO.Abstractions.4.2.10\lib\net40\System.IO.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Abstractions.TestingHelpers, Version=4.0.0.0, Culture=neutral, PublicKeyToken=96bf224d23c43e59">
+      <HintPath>packages\System.IO.Abstractions.TestingHelpers.4.2.10\lib\net40\System.IO.Abstractions.TestingHelpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -336,9 +347,6 @@
     </Reference>
     <Reference Include="System.IO.Abstractions">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/System.IO.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.IO.Abstractions.TestingHelpers">
-      <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/System.IO.Abstractions.TestingHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Barracuda">
       <HintPath>E:/Andreea/Projects/Git/Unity2/UnityEnvironment/Assets/ML-Agents/Plugins/Barracuda.Core/Barracuda/Barracuda.dll</HintPath>
@@ -738,6 +746,9 @@
       <Project>{5F361E90-06A8-7CB9-ADD0-C1E7478E5B94}</Project>
       <Name>iOSBLAS</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
