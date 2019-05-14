@@ -3,10 +3,10 @@ logs
 Debug
 *.log
 Temp
-Packages
+--.Packages
 *Cache*
 linux
 .vs
 .meta
-Library
+--.Library
 

@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/ML-Agents/Games/1ArmMove/Scenes/TapObjectsDoubleJointedArms.unity
+  isLoaded: 1
+  isActive: 1
